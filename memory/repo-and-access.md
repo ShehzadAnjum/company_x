@@ -17,6 +17,7 @@ clone, push branches, and open PRs directly — no fork needed). Invited 2026-06
 - Pushing directly to `main` is the current norm (solo owner). End **every** commit with:
   `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`.
 - `.gitignore` guards `.env` / `*.key` / `*.pem` / logs. Never commit secrets.
-- **Not yet enabled:** branch protection on `main` (require a PR + review before merge). Worth
-  considering now that there's a collaborator — see the TODO in [[worklog-and-todo]].
+- **Branch protection: NOT enabled** — requires **GitHub Pro** for a private repo (free plan
+  returns 403 for both classic protection and rulesets). **Decision 2026-06-27:** leave `main`
+  open / direct pushes. To enable later: upgrade to Pro, or make a public site-only repo.
 - Public-site split is an open option (host only `site/`, keep `reports/` private) — [[worklog-and-todo]].

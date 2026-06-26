@@ -19,8 +19,9 @@ metadata:
 
 **Open TODO / next:**
 - [ ] **Lock the company name & brand** (Aevum is a proposal) → then swap `AEVUM` + `hello@aevum.ai` in `site/`.
-- [ ] Decide the `main` workflow now Hamza is joining: enable **branch protection** (require PR
-      review) vs keep direct pushes. [[repo-and-access]]
+- [x] **Decided 2026-06-27:** `main` left **open / direct pushes**. Branch protection (and
+      rulesets) require **GitHub Pro** for a private repo — the free plan returns 403. Revisit
+      if upgrading to Pro or splitting a public site-only repo. [[repo-and-access]]
 - [ ] Optional: split a **public** repo containing only `site/` for hosting (GitHub Pages /
       Vercel), keeping `reports/` private. (Lab dossier links would 404 without `reports/`.)
 - [ ] Optional: promote a field-ready product (e.g. My Personal Examiner, HR Agent) to a full
