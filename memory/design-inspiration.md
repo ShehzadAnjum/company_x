@@ -30,7 +30,7 @@ Labs: Anthropic · OpenAI · Mistral · Perplexity. Benchmarks: Linear · Vercel
 - **Show the agent working.** Sierra/Lindy/Decagon/Cresta embed a live agent artifact in the hero
   (chat thread, booking widget) — proof, not promise. Maps directly to our honesty rule.
 - **Blueprint structure** (Cognition): corner ticks, numbered sections `01/02`, mono labels, hairlines.
-  Closest analog to Aevum — a ready-made way to render "what runs today vs roadmap gap".
+  Closest analog to Veloce-AI — a ready-made way to render "what runs today vs roadmap gap".
 - **One accent on CTAs.** Agentic blue dominates: Decagon, Lindy `#2A66FF`, Cresta `#205AE3`,
   Cognition `#2200FF`.
 
@@ -42,7 +42,7 @@ Type: display **Inter Tight** (big/light/tight), serif accent **Fraunces** itali
 labels **JetBrains Mono**. Scale: hero `clamp(2.8rem,6.5vw,5.4rem)` w500 ls −.03em; H2 ~3rem w500;
 mono eyebrow .72rem ls .18em uppercase. Dropped: void bg, floating orbs, the 4-stop neon gradient.
 
-## Verdict for Aevum
+## Verdict for Veloce-AI
 Warm paper + near-black ink + one cobalt accent + grotesque-sans/serif/mono + Cognition-style
 blueprint = the credible-but-futuristic sweet spot that avoids the vaporware-neon trap. The
 numbered/ticked structure turns the honesty rule into a design feature. See [[identity-and-positioning]].

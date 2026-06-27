@@ -18,3 +18,7 @@ node_modules/
 .env.*
 *.pem
 *.key
+
+# wrangler / Cloudflare local state
+.wrangler/
+*:Zone.Identifier

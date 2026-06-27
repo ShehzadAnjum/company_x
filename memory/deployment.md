@@ -17,11 +17,16 @@ single `purpledelight.css` link in `index.html` to change skins (alts: `mystyle-
 warm-paper directions are kept as noindex alternates: `index-v3.html` (`styles-v3.css`) and
 `index-v2.html` (`styles-v2.css`). See [[design-inspiration]].
 
-**Hosting: Cloudflare Pages, Git-connected** to `ShehzadAnjum/company_x` (private repo → needs the
-Cloudflare GitHub app installed with access). Production branch **main**; pushing to main triggers
-a deploy. Build settings:
-- Framework preset: **None** · Build command: **(empty)** · **Build output directory: `site`** · Root: `/`
-- Custom domain **veloce-ai.com** added in the Pages project (DNS auto-managed since the zone is on CF).
+**Hosting: Cloudflare Pages — project `veloce-ai`** (account `0d312dcb…`), **deployed via
+`wrangler` direct upload** of the `site/` dir (NOT Git-connected):
+`npx wrangler@4 pages deploy site --project-name veloce-ai --branch main`.
+- Live at **https://veloce-ai.pages.dev**. Custom domain **veloce-ai.com** attached to the project;
+  DNS = **apex CNAME `veloce-ai.com` → `veloce-ai.pages.dev` (proxied)**, zone `8275b4c1…` (active).
+- Creds in `.env` (gitignored): `CLOUDFLARE_API_TOKEN` is **account-scoped** — works on the Pages/
+  account API but **fails `/user/tokens/verify` by design** (no User scope), so don't treat that 401
+  as "invalid". `CLOUDFLARE_ACCOUNT_ID` + R2 S3 keys also in `.env`.
+- Re-deploy after changes: same `wrangler pages deploy site …` command (env loaded from `.env`).
+- Pages auto-redirects `*.html` → clean URLs (308); links still work.
 
 **`reports/` is intentionally NOT published** — output dir is `site`, so the 25 internal strategy
 dossiers + `MASTER_REPORT.md` stay private. Consequence: `lab.html`'s per-product "open dossier"

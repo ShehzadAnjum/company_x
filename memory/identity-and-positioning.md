@@ -1,6 +1,6 @@
 ---
 name: identity-and-positioning
-description: Aevum brand proposal, the autonomous-FTE positioning, taglines, and the honesty stance.
+description: Veloce-AI positioning — the autonomous-FTE narrative, taglines, and the honesty stance.
 metadata:
   type: project
 ---
@@ -10,14 +10,12 @@ FTEs** (Full-Time-Equivalents) — AI agents that own a job end-to-end and run *
 headcount cost and deliver machine-grade, auditable execution. Differentiator: **agent-first,
 not a chatbot bolted onto SaaS**, backed by an early-adopter heritage across the AI evolution.
 
-**Brand (proposal — NOT locked):** **Aevum — "The Restless Workforce."** Latin *aevum* = "an
-age / the eternal", chosen to carry both 24/7 perpetual work and the long AI lineage. Alternates
-considered: Perpetua, ZeroFTE, Cognautics, Restless AI, Sentient Labs. Until a name is locked,
-treat "Aevum / Company X" as a placeholder (to rebrand, swap `AEVUM` + `hello@aevum.ai` in
-`site/` — see [[showcase-site]]).
+**Brand (LOCKED): Veloce-AI** — domain veloce-ai.com, official tagline **"Autonomous
+Intelligence. Always On."** (*Aevum* was the earlier placeholder, now retired.) Full visual
+identity — infinity logo, colours, fonts, asset kit — in [[brand-identity]].
 
-**Taglines in play:** "Hire the machine." · "The workforce that never sleeps." · "Autonomous
-FTEs for the always-on enterprise."
+**Taglines in play:** "Autonomous Intelligence. Always On." (official) · "Hire the machine." ·
+"The workforce that never sleeps." (the "Restless Workforce" line survives as a site sub-tagline).
 
 **The FTE framing (use consistently across site + reports):** every product is sold as **a role
 it replaces** — *"The AI _[role]_ — works 24/7, replaces ~N hrs / one seat of _[function]_, with

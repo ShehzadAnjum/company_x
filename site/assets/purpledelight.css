@@ -19,8 +19,8 @@
   --ai-grad-2:linear-gradient(135deg,#7C3AED,#A855F7 60%,#C084FC);
   --glass-grad:linear-gradient(180deg,rgba(139,92,255,.14),rgba(124,58,237,.04));
 
-  /* deep violet-black surfaces */
-  --void:#08060F; --void-2:#0E0B1E; --void-3:#15102E;
+  /* deep indigo surfaces — purple shifted toward blue */
+  --void:#06070F; --void-2:#0A0B24; --void-3:#101545;
   --panel:rgba(167,139,250,.045); --panel-2:rgba(167,139,250,.08);
 
   --line:rgba(150,110,255,.16); --line-2:rgba(150,110,255,.30); --line-glow:rgba(168,85,247,.45);
@@ -33,18 +33,20 @@
 
   --radius:16px; --radius-lg:22px;
 
-  /* fonts: geometric modern display + clean body */
-  --font-display:'Sora',system-ui,sans-serif;
-  --font-body:'Inter',system-ui,sans-serif;
+  /* fonts: Space Grotesk display (digit-safe) + light Plus Jakarta Sans body.
+     Unigeo64 is applied to the hero headline only (it's a trial font whose
+     digits are watermarked, so it must not touch numbers — see .hero h1). */
+  --font-display:'Space Grotesk','Sora',system-ui,sans-serif;
+  --font-body:'Plus Jakarta Sans','Inter',system-ui,sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,monospace;
 }
 
 body{ background:var(--void); color:var(--text); }
-h1,h2,h3,.display{ letter-spacing:-.025em; font-weight:700; }
+h1,h2,h3,.display{ letter-spacing:-.02em; font-weight:400; }
 
 /* retint the ambient orbs to all-purple */
 .orb.c1{ background:radial-gradient(circle,#A855F7,transparent 65%); }
-.orb.c2{ background:radial-gradient(circle,#7C3AED,transparent 65%); }
+.orb.c2{ background:radial-gradient(circle,#5B5BF0,transparent 65%); }
 .orb.c3{ background:radial-gradient(circle,#C084FC,transparent 65%); opacity:.28; }
 
 /* gradient text -> purple sweep */
@@ -57,18 +59,15 @@ h1,h2,h3,.display{ letter-spacing:-.025em; font-weight:700; }
    Circle cursor + spotlight (Purple2 reference)
    ============================================================ */
 
-/* hide the native arrow only on real pointer devices */
-@media (hover:hover) and (pointer:fine){
-  body.fx, body.fx a, body.fx button, body.fx .btn, body.fx .chip{ cursor:none; }
-}
+/* native cursor stays visible; the ring is a decorative follower */
 
 /* thin hollow circle that follows the pointer (Purple2: plain 1px ring,
    no center dot, soft light-lavender stroke, very subtle glow) */
 .cursor-ring{
   position:fixed; top:0; left:0; z-index:9999; pointer-events:none;
   width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%;
-  border:1px solid rgba(205,199,228,.55);
-  box-shadow:0 0 6px -2px rgba(168,85,247,.35);
+  border:1.5px solid rgba(47,230,224,.72);
+  box-shadow:none;
   transition:width .2s ease, height .2s ease, margin .2s ease,
              background .2s ease, border-color .2s ease, opacity .25s ease;
   will-change:transform; opacity:0;
@@ -76,7 +75,7 @@ h1,h2,h3,.display{ letter-spacing:-.025em; font-weight:700; }
 /* ring grows + fills faintly over interactive elements */
 .cursor-ring.is-active{
   width:46px; height:46px; margin:-23px 0 0 -23px;
-  background:rgba(139,92,255,.10); border-color:rgba(190,170,255,.8);
+  background:rgba(47,230,224,.12); border-color:rgba(47,230,224,.95);
 }
 
 /* soft spotlight that lightens the dark background near the pointer.
@@ -84,7 +83,7 @@ h1,h2,h3,.display{ letter-spacing:-.025em; font-weight:700; }
 .cursor-glow{
   position:fixed; top:0; left:0; z-index:-1; pointer-events:none;
   width:240px; height:240px; margin:-120px 0 0 -120px; border-radius:50%;
-  background:radial-gradient(circle, rgba(139,92,255,.16) 0%, rgba(124,58,237,.07) 38%, transparent 70%);
+  display:none;   /* cursor glow removed */
   will-change:transform; opacity:0; transition:opacity .4s ease;
 }
 
@@ -94,3 +93,260 @@ body.fx.fx-ready .cursor-glow{ opacity:1; }
 /* Under reduce-motion we keep the ring + spotlight visible (they convey the
    skin's identity, not decorative motion); the trailing ease is dropped in JS
    so the ring tracks the pointer 1:1 with no animated lag. */
+
+/* ============================================================
+   Techanzy-inspired refresh: Unigeo64 display, thin "executive"
+   weights, a two-column hero, and a cursor-following robot.
+   ============================================================ */
+
+@font-face{ font-family:'Unigeo64'; src:url('fonts/Unigeo64-Regular.ttf') format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face{ font-family:'Unigeo64'; src:url('fonts/Unigeo64-Medium.ttf') format('truetype'); font-weight:500; font-style:normal; font-display:swap; }
+
+/* thin, uncluttered typographic pass — light body, airy headings */
+body{ font-weight:300; letter-spacing:.003em; }
+.hero h1{ font-family:'Unigeo64','Space Grotesk',system-ui,sans-serif; font-weight:400; letter-spacing:-.015em; line-height:1.06; }
+
+/* greeting — no background pill */
+.greet{ display:flex; width:fit-content; align-items:center; gap:.55rem; padding:0; border:0; background:none; margin:.9rem 0 0; }
+/* greeting pinned to the hero's top-right corner, just below the top bar */
+.greet-corner{ position:absolute; top:.8rem; right:clamp(1rem,3vw,2.4rem); left:auto; margin:0; z-index:4; gap:.4rem; }
+.greet.greet-corner b{ font-size:.82rem; }
+.greet.greet-corner .greet-sun{ width:20px; height:20px; }
+.greet b{ font-family:'Unigeo64','Space Grotesk',sans-serif; font-weight:400; font-size:1rem; letter-spacing:.06em; text-transform:uppercase; color:#FFFAF4; }
+.greet-sun{ width:26px; height:26px; flex:none; transform-origin:center 62%; filter:drop-shadow(0 0 5px rgba(255,205,55,.9)); animation:sunBreathe 1.3s ease-in-out infinite; }
+@keyframes sunBreathe{ 0%,100%{ transform:scale(1); filter:drop-shadow(0 0 4px rgba(255,205,55,.7)) } 50%{ transform:scale(1.1); filter:drop-shadow(0 0 10px rgba(255,215,70,1)) } }
+
+/* hero badge — colour matches the lab .eyebrow (cyan), thin, clear hairline border */
+.ai-badge{ display:flex; width:fit-content; white-space:nowrap; font-weight:300; letter-spacing:.05em; color:#2FE6E0; background:rgba(47,230,224,.05); border:1px solid rgba(47,230,224,.42); box-shadow:none; padding:.4rem .85rem; }
+.ai-badge::before{ color:#2FE6E0; }
+/* FTE phrase stays sea-green; only the F·T·E initials are yellow */
+.ai-badge .fte{ color:#2FE6E0; }
+.ai-badge .fte i{ background:none; color:#FFD43B; -webkit-text-fill-color:#FFD43B; }
+
+@media (prefers-reduced-motion:reduce){ .greet-sun{ animation:none } }
+
+/* buttons — glossy vertical gradient + defined edge & glow so they pop off the page */
+.btn-primary{ background:linear-gradient(180deg,#9D5BFF,#7C3AED); color:#fff; border:1px solid rgba(255,255,255,.22); box-shadow:0 8px 24px -8px rgba(124,58,237,.85), inset 0 1px 0 rgba(255,255,255,.3); }
+.btn-primary:hover{ background:linear-gradient(180deg,#AC6CFF,#8A46F2); box-shadow:0 13px 32px -8px rgba(124,58,237,1), inset 0 1px 0 rgba(255,255,255,.35); }
+.btn-ghost{ background:rgba(255,255,255,.06); color:#fff; border:1px solid rgba(199,174,255,.55); box-shadow:inset 0 1px 0 rgba(255,255,255,.06); }
+.btn-ghost:hover{ background:rgba(255,255,255,.12); border-color:rgba(199,174,255,.9); }
+
+/* ---- Veloce-AI brand assets (from resources/veloce_ai_brand_sheet/) ---- */
+/* nav: the "Veloce AI" wordmark is always visible at the far left; the small
+   logo slides in on scroll and pushes the wordmark to its right */
+nav .brand-mark{ opacity:0; max-width:0; margin-right:-.7rem;
+  transition:opacity .35s ease, max-width .4s ease, margin-right .4s ease; }
+body.scrolled nav .brand-mark{ opacity:1; max-width:110px; margin-right:0; }
+.brand{ gap:.7rem; }
+.brand-mark{ height:22px; width:auto; display:block; filter:drop-shadow(0 0 10px rgba(168,85,247,.4)); }
+.brand-name{ font-family:var(--font-display); font-weight:500; letter-spacing:-.01em; }
+@media (max-width:560px){ .brand-name{ display:none; } }
+
+/* footer lockup: symbol over wordmark over tagline (per brand sheet) */
+.foot-lockup{ display:flex; flex-direction:column; align-items:flex-start; gap:.6rem; margin-bottom:.7rem; }
+.foot-symbol{ height:38px; width:auto; filter:drop-shadow(0 0 12px rgba(168,85,247,.3)); }
+.foot-wordmark{ height:20px; width:auto; }
+.foot-tagline{ height:13px; width:auto; opacity:.92; }
+
+/* The Infinity Concept — value cards using the brand sheet icons */
+.infinity{ background:radial-gradient(60vw 50vh at 50% 30%,rgba(124,58,237,.06),transparent 65%); }
+.concept-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem; margin-top:1rem; }
+@media (max-width:860px){ .concept-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .concept-grid{ grid-template-columns:1fr; } }
+.concept{ text-align:center; padding:2rem 1.4rem; transition:transform .22s, border-color .22s; }
+.concept:hover{ transform:translateY(-4px); }
+.concept-ic{ height:58px; width:auto; display:block; margin:0 auto 1rem; filter:drop-shadow(0 6px 18px rgba(168,85,247,.4)); }
+.concept h3{ font-size:1.08rem; font-weight:600; margin-bottom:.5rem; }
+.concept p{ color:var(--fog); font-size:.86rem; line-height:1.55; }
+/* "Full Time Equivalent Employee" — the F·T·E initials styled to stand out */
+.fte i{ font-style:normal; font-weight:700; font-size:1.05em; letter-spacing:.01em;
+  background:var(--ai-grad-2); -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent; }
+
+/* infinity mark as the CTA card's backdrop (behind the text, not covered) */
+.final-card{ position:relative; overflow:hidden; }
+.brand-watermark{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:118%; height:auto; max-width:none; opacity:.16; pointer-events:none; z-index:0; }
+.final-card > *:not(.brand-watermark){ position:relative; z-index:1; }
+.section-head h2,.copilot h2,.final h2,.honesty-card h3,.replaces h3{ font-weight:400; }
+.hero .sub,.section-head p,.copilot p{ font-weight:300; }
+.pillar p,.unit-hook,.lab-hook,.feat li,.ai-answer .line{ font-weight:300; }
+.btn{ font-weight:500; }
+.brand{ font-weight:500; }
+b,strong,.ai-answer .line b,.feat li b{ font-weight:600; }   /* emphasis, not heavy */
+
+/* top bar: brand logo pinned to the extreme left with a little padding */
+nav .wrap{ width:auto; max-width:none; margin-inline:0; padding-left:clamp(1rem,2.4vw,2.2rem); padding-right:clamp(1rem,2.4vw,2.2rem); }
+
+/* ---- two-column hero ---- */
+.hero.hero-split{ padding:.5rem 0 4rem; }
+/* hero spans (near) the full screen width */
+.hero.hero-split .wrap{ width:min(1560px,96vw); }
+.hero-grid{ display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:start; text-align:left; }
+.hero-copy{ max-width:50rem; }
+
+/* ---- centered brand masthead (logo on top, tagline image, claim, pronunciation, greeting) ---- */
+.hero-masthead{ display:flex; flex-direction:column; align-items:flex-start; text-align:left; margin-top:1.1rem; margin-bottom:1.6rem; }
+/* logo with the phonetic line beside it on the right */
+.mh-row{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+.mh-row .veloce-pron{ margin:0; position:relative; top:.7rem; }
+.masthead-logo{ display:block; height:auto; width:min(250px,52vw); margin-top:0; flex:none; filter:drop-shadow(0 8px 28px rgba(124,58,237,.5)); }
+.masthead-tagline{ display:block; height:auto; width:min(500px,86vw); margin-top:.85rem; opacity:.96; }
+.hero-claim{ max-width:50rem; margin:1.3rem 0 .3rem; color:#fff; font-family:var(--font-display);
+  font-weight:500; font-size:clamp(1.18rem,1.6vw,1.62rem); line-height:1.35; letter-spacing:-.005em; }
+.hero-claim .fte{ color:#fff; }
+/* F·T·E in a bright, glowing purple so the initials read brighter than the white words */
+.hero-claim .fte i{ background:none; color:#D7ABFF; -webkit-text-fill-color:#D7ABFF; font-weight:700;
+  text-shadow:0 0 16px rgba(176,108,255,.85); }
+
+/* claim line — centered at the very top of the hero (below the nav), coloured text, no filled boxes */
+.hero-claimbar{ text-align:center; padding-top:.3rem; margin-bottom:.4rem; }
+.claim-line{ display:inline-flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:.7rem;
+  font-family:var(--font-display); font-weight:600; font-size:1.06rem; letter-spacing:.01em; }
+.cseg{ white-space:nowrap; }
+.cs1{ color:#B98CFF; }                 /* purple    */
+.cs2{ color:#2FE6E0; }                 /* sea-green */
+.cs3{ color:#FF5A61; }                 /* red       */
+.csep{ color:rgba(255,255,255,.28); font-weight:300; }
+
+/* Veloce pronunciation — a small red Ferrari drives out of the logo and
+   "prints" the phonetic line; the brand tagline then sweeps in below. */
+.veloce-pron{ margin:-.2rem 0 .2rem; max-width:46rem; }
+.pron-track{ position:relative; width:fit-content; max-width:100%; margin:0; padding:.1rem 0; }
+/* phonetic line — legible handwriting font, upright (not italic) */
+.pron-text{ display:block; font-family:'Caveat',cursive; font-weight:600; font-style:normal;
+  font-size:1.42rem; letter-spacing:.01em; color:#DAD4F4; white-space:nowrap;
+  animation:pronPrint 11s cubic-bezier(.3,.1,.2,1) infinite; }
+.pron-word{ color:#FF2E2E; font-weight:700; text-shadow:0 0 13px rgba(255,46,46,.5); }
+.ferrari{ position:absolute; left:0; top:50%; transform:translateY(-50%); width:58px; height:auto;
+  filter:drop-shadow(0 3px 7px rgba(255,200,0,.6)); animation:pronDrive 11s cubic-bezier(.3,.1,.2,1) infinite; }
+.pron-tag{ margin:.5rem 0 0; overflow:hidden; width:fit-content; max-width:100%; padding-bottom:.12rem; }
+/* brand tagline — upright (not italic), bigger and brighter */
+.pron-tag span{ display:inline-block; font-family:var(--font-display); font-weight:600; font-style:normal;
+  font-size:1.3rem; letter-spacing:.005em; color:#F7F4FF; white-space:nowrap;
+  animation:pronSweep 11s ease-in-out infinite; }
+/* car drives out of the logo, prints the line, then idles off-screen most of the loop */
+@keyframes pronDrive{
+  0%{ left:0; opacity:0; }
+  3%{ opacity:1; }
+  20%{ left:calc(100% - 38px); opacity:1; }
+  27%{ left:calc(100% + 90px); opacity:0; }
+  100%{ left:calc(100% + 90px); opacity:0; }
+}
+/* text prints in sync with the car, then STAYS until a quick fade before repeating */
+@keyframes pronPrint{
+  0%{ clip-path:inset(0 100% 0 0); opacity:0; }
+  3%{ opacity:1; }
+  20%{ clip-path:inset(0 0 0 0); opacity:1; }
+  93%{ clip-path:inset(0 0 0 0); opacity:1; }
+  98%{ opacity:0; }
+  100%{ clip-path:inset(0 100% 0 0); opacity:0; }
+}
+/* tagline sweeps in just after the phonetic line, then STAYS */
+@keyframes pronSweep{
+  0%,18%{ clip-path:inset(0 100% 0 0); opacity:0; }
+  34%{ clip-path:inset(0 0 0 0); opacity:1; }
+  93%{ clip-path:inset(0 0 0 0); opacity:1; }
+  98%{ opacity:0; }
+  100%{ clip-path:inset(0 100% 0 0); opacity:0; }
+}
+@media (prefers-reduced-motion:reduce){
+  .pron-text,.pron-tag span{ animation:none; clip-path:none; opacity:1; }
+  .ferrari{ display:none; }
+}
+.hero-split .hero-cta,.hero-split .hero-meta{ justify-content:flex-start; }
+.hero-console{ margin-top:3.2rem; }
+.hero-console .cmdbar,.hero-console .ai-answer{ margin-left:0; margin-right:auto; }
+@media (max-width:920px){
+  .hero-grid{ grid-template-columns:1fr; text-align:center; }
+  .hero-copy{ max-width:none; }
+  .hero-split .hero-cta,.hero-split .hero-meta{ justify-content:center; }
+  .hero-bot{ order:-1; justify-content:center; }
+  .robot{ margin-right:0; }
+}
+
+/* ---- cursor-following robot ---- */
+.hero-bot{ display:flex; flex-direction:column; align-items:center; position:relative; transform:translate(-5.5rem,13rem); }
+.robot{ width:100%; max-width:245px; height:auto; display:block; filter:drop-shadow(0 24px 54px rgba(124,58,237,.42)); }
+.bot,.bot-head,.bot-face,.bot-pupil{ transition:transform .22s cubic-bezier(.2,.7,.3,1); }
+.bot{ transform-box:fill-box; transform-origin:50% 92%; transform:translate(calc(var(--rx,0)*5px),calc(var(--ry,0)*4px)) rotate(calc(var(--rx,0)*2deg)); }
+/* head silhouette stays a round sphere; only a subtle whole-head shift */
+.bot-head{ transform-box:fill-box; transform-origin:50% 60%; transform:translate(calc(var(--rx,0)*4px),calc(var(--ry,0)*3px)); }
+/* the FACE slides + foreshortens across the sphere => reads as a real 3D head turn */
+.bot-face{ transform-box:fill-box; transform-origin:50% 52%; transform:translate(calc(var(--rx,0)*18px),calc(var(--ry,0)*12px)) scaleX(calc(1 - var(--rxabs,0)*0.18)) scaleY(calc(1 - var(--ryabs,0)*0.1)); }
+.bot-pupil{ transform:translate(calc(var(--rx,0)*5px),calc(var(--ry,0)*4px)); }
+.bot-anten{ animation:botPulse 2.2s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+@keyframes botPulse{ 0%,100%{ opacity:.6 } 50%{ opacity:1; r:9px } }
+/* cute blink */
+.bot-eyes{ transform-box:fill-box; transform-origin:50% 50%; animation:botBlink 5.4s ease-in-out infinite; }
+@keyframes botBlink{ 0%,93%,100%{ transform:scaleY(1) } 96.5%{ transform:scaleY(.12) } }
+@media (prefers-reduced-motion:reduce){ .bot-eyes{ animation:none } }
+@media (max-width:920px){ .robot{ max-width:300px; } }
+@media (max-width:520px){ .hero-bot{ display:none; } }
+
+/* the steel robot's cyan antenna pulses as a transmitter */
+.bot-anten{ filter:drop-shadow(0 0 7px rgba(47,230,224,.9)); }
+
+/* transmission waves — thin sea-green semicircles emitting LEFT across the page,
+   slow, fading more transparent the further they travel. Kept behind hero content. */
+.hero.hero-split{ position:relative; overflow:hidden; }
+.hero-copy, .hero-console{ position:relative; z-index:3; }
+.hero-bot{ z-index:1; }
+.robot{ position:relative; z-index:1; }
+.tx-waves{ position:absolute; top:40%; left:40%; width:0; height:0; z-index:0; pointer-events:none; }
+/* binary 0/1 digits radiating outward in a left-facing arc, expanding + fading */
+.bin{ position:absolute; left:0; top:0; font-family:var(--font-mono); font-weight:300; font-size:24px;
+  line-height:1; color:rgba(231,236,255,.6); opacity:0; pointer-events:none;
+  will-change:transform,opacity; animation:binWave 26s linear infinite; }
+@keyframes binWave{
+  0%{ transform:translate(calc(var(--dx) * 22px), calc(var(--dy) * 22px)); opacity:0; }
+  22%{ opacity:0; }                 /* stay invisible through the inner "line" zone */
+  30%{ opacity:.34; }               /* decode into binary once spread out */
+  100%{ transform:translate(calc(var(--dx) * 1600px), calc(var(--dy) * 1600px)); opacity:0; }
+}
+
+/* the first waves are plain line arcs, near the robot, before they become binary */
+.line-wave{ position:absolute; left:0; top:0; border:1.5px solid rgba(226,231,238,.42); border-radius:50%;
+  clip-path:inset(0 50% 0 0); width:0; height:0; opacity:0; animation:lineWave 8s linear infinite; }
+@keyframes lineWave{
+  0%{ width:30px; height:30px; margin:-15px 0 0 -15px; opacity:.44; }
+  72%{ opacity:.16; }
+  100%{ width:780px; height:780px; margin:-390px 0 0 -390px; opacity:0; }
+}
+@media (prefers-reduced-motion:reduce){ .line-wave{ animation:none; opacity:0 } }
+
+/* faint half-circle trail left behind the sea-green cursor */
+.cursor-trail{ position:fixed; top:0; left:0; z-index:9998; pointer-events:none;
+  width:16px; height:16px; margin:-8px 0 0 -8px; border:1px solid rgba(47,230,224,.5);
+  border-radius:50%; clip-path:inset(0 0 0 50%); animation:trailFade .85s ease-out forwards; }
+@keyframes trailFade{ 0%{ opacity:.45; transform:scale(.5) } 100%{ opacity:0; transform:scale(1.5) } }
+
+/* star / firework burst — very light & transparent — when the ring catches the cursor */
+.cursor-burst{ position:fixed; top:0; left:0; z-index:9998; pointer-events:none;
+  width:14px; height:14px; margin:-7px 0 0 -7px; border:1.5px solid rgba(205,244,242,.38);
+  border-radius:50%; animation:burstRing .6s ease-out forwards; }
+@keyframes burstRing{ 0%{ transform:translate(var(--bx),var(--by)) scale(.3); opacity:.45 }
+  100%{ transform:translate(var(--bx),var(--by)) scale(4.6); opacity:0 } }
+.cursor-spark{ position:fixed; top:0; left:0; z-index:9998; pointer-events:none;
+  width:4px; height:4px; margin:-2px 0 0 -2px; border-radius:50%; background:rgba(214,250,248,.55);
+  box-shadow:0 0 4px rgba(47,230,224,.28); animation:spark .72s ease-out forwards; }
+@keyframes spark{ 0%{ transform:translate(var(--x0),var(--y0)) scale(1); opacity:.55 }
+  100%{ transform:translate(var(--x1),var(--y1)) scale(.2); opacity:0 } }
+
+@media (prefers-reduced-motion:reduce){ .bin{ animation:none; opacity:0 } }
+
+/* ---- split-flap "airport board" neon clock (nav) ---- */
+.nav-clock [data-flap]{ display:inline-flex; gap:2px; perspective:140px; }
+.flap{
+  position:relative; display:inline-grid; place-items:center; transform-origin:center;
+  min-width:1.02em; padding:.2em .15em; border-radius:3px; line-height:1;
+  font-family:var(--font-mono); font-weight:700; font-size:.82rem; color:#D8DAE2;
+  background:linear-gradient(#22202b,#0e0d15);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 1px 2px rgba(0,0,0,.6);
+  text-shadow:0 0 3px rgba(255,255,255,.2);
+}
+.flap-sep{ background:none; border:0; box-shadow:none; min-width:.32em; padding:0; }
+.flap-sep::after{ display:none; }
+.flap.flip{ animation:flapFlip .5s ease; }
+@keyframes flapFlip{ 0%{ transform:rotateX(-86deg); filter:brightness(1.7) } 55%{ transform:rotateX(10deg) } 100%{ transform:rotateX(0); filter:brightness(1) } }
+@media (prefers-reduced-motion:reduce){ .flap.flip{ animation:none } }
