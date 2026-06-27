@@ -73,7 +73,7 @@
     if (!document.body.classList.contains('fx')) return;
     const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
     const calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    if (!fine || calm) return;
+    if (!fine) return;   // reduce-motion keeps the cursor, just drops the trail
 
     const ring = document.createElement('div'); ring.className = 'cursor-ring';
     const glow = document.createElement('div'); glow.className = 'cursor-glow';
@@ -91,8 +91,9 @@
     };
     window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY), { passive: true });
 
+    const ease = calm ? 1 : 0.2;   // calm: snap to pointer (no trailing motion)
     const raf = () => {
-      rx += (tx - rx) * 0.2; ry += (ty - ry) * 0.2;
+      rx += (tx - rx) * ease; ry += (ty - ry) * ease;
       ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
       requestAnimationFrame(raf);
     };

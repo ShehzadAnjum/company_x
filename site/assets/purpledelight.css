@@ -91,7 +91,6 @@ h1,h2,h3,.display{ letter-spacing:-.025em; font-weight:700; }
 body.fx.fx-ready .cursor-ring{ opacity:1; }
 body.fx.fx-ready .cursor-glow{ opacity:1; }
 
-@media (prefers-reduced-motion:reduce){
-  .cursor-ring,.cursor-glow{ display:none !important; }
-  @media (hover:hover){ body.fx,body.fx *{ cursor:auto !important; } }
-}
+/* Under reduce-motion we keep the ring + spotlight visible (they convey the
+   skin's identity, not decorative motion); the trailing ease is dropped in JS
+   so the ring tracks the pointer 1:1 with no animated lag. */
