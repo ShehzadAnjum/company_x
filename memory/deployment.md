@@ -9,9 +9,13 @@ metadata:
 on Cloudflare. Email **hello@veloce-ai.com**. The site ([[showcase-site]]) was rebranded across
 `site/` on 2026-06-27 (AEVUM→Veloce AI; logo renders `Veloce` + the `AI` badge).
 
-**Live homepage = the v3 deep-black theme.** `site/index.html` now serves the v3 variant
-(`assets/styles-v3.css`); the warm-paper alternate stays at `site/index-v2.html` (noindex).
-See [[design-inspiration]] for the two variants.
+**Live homepage = Hamza's "PurpleDelight" skin** (merged from PR #1, 2026-06-27): the original
+layout recoloured deep-violet (Sora type, purple accent) + a custom cursor-ring/spotlight glow
+(`body class="fx"`, `assets/purpledelight.css` over `styles.css`, cursorFX in `app.js`). Swap the
+single `purpledelight.css` link in `index.html` to change skins (alts: `mystyle-ideal.css`,
+`orangefishsea.css`; remove the line for the plain dark theme). The earlier deep-black and
+warm-paper directions are kept as noindex alternates: `index-v3.html` (`styles-v3.css`) and
+`index-v2.html` (`styles-v2.css`). See [[design-inspiration]].
 
 **Hosting: Cloudflare Pages, Git-connected** to `ShehzadAnjum/company_x` (private repo → needs the
 Cloudflare GitHub app installed with access). Production branch **main**; pushing to main triggers

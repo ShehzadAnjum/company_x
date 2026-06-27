@@ -311,5 +311,6 @@ footer{ border-top:1px solid var(--line); padding:3rem 0; color:var(--muted); }
 @media (prefers-reduced-motion:reduce){
   *{ animation:none!important; transition:none!important; }
   .reveal{ opacity:1; transform:none; }
-  .orb{ display:none; }
+  /* keep the ambient orb glows — animation:none above freezes their
+     float, so they remain as a static background glow */
 }

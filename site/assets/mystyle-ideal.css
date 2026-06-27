@@ -1,0 +1,126 @@
+/* ============================================================
+   MyStyle "Ideal" skin — index.html ONLY.
+   Warm editorial: paper base, serif display (Fraunces), bold
+   single accent, flat cards (no glass/glow/neon), italic accent
+   words, one saturated accent block. Loaded after styles.css on
+   the landing page exclusively; no other page links this file.
+   ============================================================ */
+
+:root{
+  /* warm earthy accents (brown / burnt-orange / office-green) */
+  --cyan:#CF4A22;          /* primary accent (burnt orange)        */
+  --azure:#B8421E;
+  --violet:#3E5C45;        /* secondary: office/tea-leaf green     */
+  --magenta:#CF4A22;
+  --amber:#9A6B1E;         /* roadmap, darkened for light bg       */
+
+  --ai-grad:linear-gradient(0deg,#CF4A22,#CF4A22);   /* solid accent */
+  --ai-grad-2:linear-gradient(0deg,#1A1714,#1A1714); /* solid ink    */
+  --glass-grad:linear-gradient(180deg,rgba(26,23,20,.015),rgba(26,23,20,.015));
+
+  /* paper surfaces */
+  --void:#F4F1EA; --void-2:#FBF9F4; --void-3:#EFEAE0;
+  --panel:rgba(26,23,20,.025); --panel-2:rgba(26,23,20,.05);
+
+  /* ink hairlines + warm text */
+  --line:rgba(26,23,20,.14); --line-2:rgba(26,23,20,.26); --line-glow:rgba(207,74,34,.5);
+  --text:#1A1714; --fog:#56514A; --muted:#867E72;
+
+  /* kill the glows */
+  --glow-c:0 0 0 0 transparent; --glow-v:0 0 0 0 transparent;
+  --shadow:0 24px 60px -34px rgba(26,23,20,.30);
+
+  --radius:5px; --radius-lg:8px;
+
+  /* editorial type: Fraunces serif display, Space Grotesk for body+labels */
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-body:'Space Grotesk',system-ui,sans-serif;
+  --font-mono:'Space Grotesk',system-ui,sans-serif;
+}
+
+body{ background:var(--void); color:var(--text); }
+
+/* --- strip the dark/neon backdrop layers --- */
+.void-base{ background:var(--void); }
+.orbs, .orb{ display:none !important; }
+.grid-bg{ display:none !important; }
+
+/* --- flat editorial cards (no glass, no glow) --- */
+.glass{ background:var(--void-2); border:1px solid var(--line); backdrop-filter:none; box-shadow:var(--shadow); }
+.glass::before{ display:none !important; }
+
+/* section ambience glows -> none */
+.engine, .copilot{ background:none !important; }
+.layer:hover{ background:var(--panel); }
+
+/* --- nav --- */
+nav{ background:rgba(244,241,234,.82); border-bottom:1px solid var(--line); }
+.nav-links a:hover{ color:var(--cyan); }
+.brand{ font-weight:600; }
+.brand .mark{ background:#1A1714; color:#F4F1EA; box-shadow:none; border-radius:4px; }
+.brand .ai{ color:var(--cyan); border-color:var(--line-2); }
+.nav-burger span{ background:var(--text); }
+
+/* --- type: big warm serif headlines, italic accent words --- */
+h1,h2,h3,.display{ letter-spacing:-.015em; font-weight:500; }
+.hero h1{ font-weight:500; text-shadow:none; }
+.ai-grad-text{
+  background:none; -webkit-text-fill-color:var(--cyan); color:var(--cyan);
+  filter:none; font-style:italic; font-weight:500;
+}
+.stat .n.ai-grad-text{ font-style:normal; }
+
+/* eyebrow / labels: flat, accent, no glow */
+.eyebrow{ color:var(--cyan); }
+.eyebrow::before{ color:var(--cyan); filter:none; }
+.ai-badge{ background:transparent; border:1px solid var(--line-2); color:var(--text); box-shadow:none; }
+.ai-badge::before{ color:var(--cyan); }
+
+/* status dots / tags — flat */
+.dot{ background:var(--cyan); box-shadow:0 0 0 3px rgba(207,74,34,.14); }
+.dot.amber{ background:var(--amber); box-shadow:0 0 0 3px rgba(154,107,30,.16); }
+.dot.violet{ background:var(--violet); box-shadow:0 0 0 3px rgba(62,92,69,.16); }
+.tag-live{ color:#8a3417; border-color:rgba(207,74,34,.4); background:rgba(207,74,34,.06); }
+.tag-prod{ color:#8a3417; border-color:rgba(207,74,34,.55); background:rgba(207,74,34,.09); box-shadow:none; }
+
+/* hero command bar + fleet feed — clean paper, no glow */
+.cmdbar .spark{ background:var(--cyan); box-shadow:none; }
+.cmdbar .typed .cur{ background:var(--cyan); box-shadow:none; }
+.ai-answer .who{ color:var(--cyan); }
+.ai-answer .who .pulse{ background:var(--cyan); box-shadow:none; }
+.ai-answer .line b{ color:var(--text); }
+.ai-answer .line .k{ color:var(--cyan); }
+.ai-answer .line .ok{ color:var(--violet); }   /* success -> office green */
+
+/* tiles (pillars / fleet / platform) — flat, square-ish, no inset glow */
+.pillar .ic, .unit-badge, .layer .lic{
+  background:var(--void-3); border:1px solid var(--line); box-shadow:none; border-radius:6px;
+}
+.pstep .num, .unit-role, .unit-open, .pstep .arrow{ color:var(--cyan); }
+.pstep .arrow{ color:var(--muted); }
+.copilot li .ck, .copilot li b{ color:var(--text); }
+.copilot li .ck{ color:var(--cyan); }
+.meter-row .bar i{ box-shadow:none; }
+.layer:hover{ border-color:var(--line-2); }
+
+/* buttons: editorial solid-ink primary, outlined ghost */
+.btn-primary{ background:#1A1714; color:#F4F1EA; box-shadow:none; }
+.btn-primary:hover{ background:#000; box-shadow:none; }
+.btn-ghost{ background:transparent; border:1px solid var(--line-2); color:var(--text); }
+.btn-ghost:hover{ background:var(--panel); border-color:var(--text); }
+
+/* footer */
+.nav-links a:hover, .foot-col a:hover{ color:var(--cyan); }
+.foot-brand .brand{ color:var(--text) !important; }   /* override inline color:#fff */
+
+::selection{ background:rgba(207,74,34,.25); color:#1A1714; }
+
+/* --- one bold saturated block: the final CTA (Storytelling/eggs energy) --- */
+.final-card{ background:#CF4A22; border-color:transparent; box-shadow:var(--shadow); }
+.final-card .eyebrow, .final-card .eyebrow::before{ color:#F4F1EA; }
+.final-card h2{ color:#F4F1EA; }
+.final-card .ai-grad-text{ -webkit-text-fill-color:#1A1714; color:#1A1714; }
+.final-card p{ color:rgba(244,241,234,.92) !important; }
+.final-card .btn-primary{ background:#1A1714; color:#F4F1EA; }
+.final-card .btn-ghost{ background:transparent; border-color:rgba(244,241,234,.55); color:#F4F1EA; }
+.final-card .btn-ghost:hover{ background:rgba(244,241,234,.1); }
