@@ -1,4 +1,4 @@
-/* AEVUM — interaction layer (AI-spectrum build). Vanilla JS, no deps. */
+/* Veloce AI — interaction layer (AI-spectrum build). Vanilla JS, no deps. */
 (function () {
   'use strict';
 

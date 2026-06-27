@@ -6,7 +6,10 @@ metadata:
 ---
 
 **The site (`site/`) is built and verified** (Playwright render, no console errors). Static
-HTML/CSS/JS, **no build step**.
+HTML/CSS/JS, **no build step**. Rebranded to **Veloce AI** and deployed — see [[deployment]].
+The live `index.html` now uses the **v3 deep-black theme** (`styles-v3.css`); `index-v2.html` is the
+warm-paper alternate (noindex). `products/*.html` + `lab.html` still use the original neon kit
+(`styles.css`) — porting them to v3 is an open follow-up. Variant details: [[design-inspiration]].
 - `index.html` — landing: hero with an AI command bar + live fleet shift-log, thesis pillars,
   the **Watch → Reason → Act → Report** pipeline, the 5-unit fleet grid (+ a "20 more in the
   lab" card), the platform stack (Live/Roadmap tags), the honesty band, count-up stats, CTA.
