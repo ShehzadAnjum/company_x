@@ -68,6 +68,50 @@
     setTimeout(tick, 1100);
   }
 
+  /* ---- circle cursor + spotlight (PurpleDelight / Purple2) ------------- */
+  (function cursorFX() {
+    if (!document.body.classList.contains('fx')) return;
+    const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (!fine || calm) return;
+
+    const ring = document.createElement('div'); ring.className = 'cursor-ring';
+    const glow = document.createElement('div'); glow.className = 'cursor-glow';
+    document.body.append(glow, ring);
+
+    // glow tracks the pointer 1:1; the ring eases behind for a trailing feel
+    let tx = innerWidth / 2, ty = innerHeight / 2;   // target (true pointer)
+    let rx = tx, ry = ty;                             // ring position (lerped)
+    let started = false;
+
+    const move = (x, y) => {
+      tx = x; ty = y;
+      glow.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      if (!started) { started = true; document.body.classList.add('fx-ready'); }
+    };
+    window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY), { passive: true });
+
+    const raf = () => {
+      rx += (tx - rx) * 0.2; ry += (ty - ry) * 0.2;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    // grow + fill the ring over clickable things
+    const interactive = 'a, button, .btn, .chip, [role="button"], input, textarea, select';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactive)) ring.classList.add('is-active');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactive)) ring.classList.remove('is-active');
+    });
+
+    // fade everything out when the pointer leaves the window
+    document.addEventListener('mouseleave', () => document.body.classList.remove('fx-ready'));
+    document.addEventListener('mouseenter', () => { if (started) document.body.classList.add('fx-ready'); });
+  })();
+
   /* ---- lab category filter -------------------------------------------- */
   const chips = document.querySelectorAll('.lab-filters .chip');
   if (chips.length) {

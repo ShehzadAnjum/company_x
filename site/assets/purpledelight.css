@@ -1,0 +1,97 @@
+/* ============================================================
+   PurpleDelight skin — index.html ONLY.
+   Deep-violet "Techanzy" look from the reference images:
+   near-black purple base, glassy cards, one vivid purple accent,
+   modern geometric type (Sora), plus a thin circle cursor and a
+   soft spotlight that lightens the background around the pointer.
+   Loaded after styles.css on the landing page exclusively.
+   ============================================================ */
+
+:root{
+  /* monochrome purple accent spectrum (override the AI rainbow) */
+  --cyan:#A78BFA;          /* was cyan -> light violet, keeps accents purple */
+  --azure:#8B5CF6;
+  --violet:#8B5CF6;        /* primary purple                                 */
+  --magenta:#C084FC;       /* light orchid                                   */
+  --amber:#F0A85A;         /* roadmap stays warm for contrast                */
+
+  --ai-grad:linear-gradient(120deg,#7C3AED 0%,#9D5CFF 45%,#C084FC 100%);
+  --ai-grad-2:linear-gradient(135deg,#7C3AED,#A855F7 60%,#C084FC);
+  --glass-grad:linear-gradient(180deg,rgba(139,92,255,.14),rgba(124,58,237,.04));
+
+  /* deep violet-black surfaces */
+  --void:#08060F; --void-2:#0E0B1E; --void-3:#15102E;
+  --panel:rgba(167,139,250,.045); --panel-2:rgba(167,139,250,.08);
+
+  --line:rgba(150,110,255,.16); --line-2:rgba(150,110,255,.30); --line-glow:rgba(168,85,247,.45);
+
+  --text:#ECEBFB; --fog:#A9A4CF; --muted:#6E6992;
+
+  --glow-c:0 0 50px -8px rgba(168,85,247,.45);
+  --glow-v:0 0 50px -8px rgba(124,58,237,.55);
+  --shadow:0 40px 120px -40px rgba(0,0,0,.85);
+
+  --radius:16px; --radius-lg:22px;
+
+  /* fonts: geometric modern display + clean body */
+  --font-display:'Sora',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+
+body{ background:var(--void); color:var(--text); }
+h1,h2,h3,.display{ letter-spacing:-.025em; font-weight:700; }
+
+/* retint the ambient orbs to all-purple */
+.orb.c1{ background:radial-gradient(circle,#A855F7,transparent 65%); }
+.orb.c2{ background:radial-gradient(circle,#7C3AED,transparent 65%); }
+.orb.c3{ background:radial-gradient(circle,#C084FC,transparent 65%); opacity:.28; }
+
+/* gradient text -> purple sweep */
+.ai-grad-text{ background:var(--ai-grad); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
+
+/* selection */
+::selection{ background:rgba(139,92,255,.38); color:#fff; }
+
+/* ============================================================
+   Circle cursor + spotlight (Purple2 reference)
+   ============================================================ */
+
+/* hide the native arrow only on real pointer devices */
+@media (hover:hover) and (pointer:fine){
+  body.fx, body.fx a, body.fx button, body.fx .btn, body.fx .chip{ cursor:none; }
+}
+
+/* thin hollow circle that follows the pointer (Purple2: plain 1px ring,
+   no center dot, soft light-lavender stroke, very subtle glow) */
+.cursor-ring{
+  position:fixed; top:0; left:0; z-index:9999; pointer-events:none;
+  width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%;
+  border:1px solid rgba(205,199,228,.55);
+  box-shadow:0 0 6px -2px rgba(168,85,247,.35);
+  transition:width .2s ease, height .2s ease, margin .2s ease,
+             background .2s ease, border-color .2s ease, opacity .25s ease;
+  will-change:transform; opacity:0;
+}
+/* ring grows + fills faintly over interactive elements */
+.cursor-ring.is-active{
+  width:46px; height:46px; margin:-23px 0 0 -23px;
+  background:rgba(139,92,255,.10); border-color:rgba(190,170,255,.8);
+}
+
+/* soft spotlight that lightens the dark background near the pointer.
+   sits just above the fixed void/grid layers, below all content. */
+.cursor-glow{
+  position:fixed; top:0; left:0; z-index:-1; pointer-events:none;
+  width:240px; height:240px; margin:-120px 0 0 -120px; border-radius:50%;
+  background:radial-gradient(circle, rgba(139,92,255,.16) 0%, rgba(124,58,237,.07) 38%, transparent 70%);
+  will-change:transform; opacity:0; transition:opacity .4s ease;
+}
+
+body.fx.fx-ready .cursor-ring{ opacity:1; }
+body.fx.fx-ready .cursor-glow{ opacity:1; }
+
+@media (prefers-reduced-motion:reduce){
+  .cursor-ring,.cursor-glow{ display:none !important; }
+  @media (hover:hover){ body.fx,body.fx *{ cursor:auto !important; } }
+}
