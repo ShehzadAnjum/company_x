@@ -11,3 +11,7 @@ signal-only (one topic per file). See `CLAUDE.md` for rules and `reports/` for t
 - [Deployment](memory/deployment.md) — veloce-ai.com on Cloudflare Pages; brand locked to "Veloce AI"; reports/ kept private.
 - [Repo & access](memory/repo-and-access.md) — private GitHub repo, the Hamza collaborator, commit/push conventions.
 - [Work log & TODO](memory/worklog-and-todo.md) — what's done, key decisions, and what's next.
+- [Lead-gen strategy](memory/lead-gen-strategy.md) — GTM, ICP, pricing, channels + the employer-IP constraints. Full plan in root `MARKETING_PLAN.md`.
+- [Social presence](memory/social-presence.md) — LinkedIn + Facebook state, owned banner/avatar assets, the symbol-free + concentric-avatar rules, the marketing kits.
+
+Also outside `memory/`: `MARKETING_PLAN.md` (shareable GTM plan) · `tasks/todo.md` (live board) · `tasks/lessons.md` (correction patterns).
