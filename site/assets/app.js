@@ -247,6 +247,35 @@
     }
   })();
 
+  /* ---- analytics & pixels (Stage A) ----------------------------------- *
+   * Fill in your real IDs to activate. Left blank = nothing loads, no error.
+   * GA4: Google Analytics "Measurement ID" (G-XXXXXXXXXX)
+   * metaPixel: Meta/Facebook Pixel ID (numeric)
+   * linkedIn: LinkedIn Insight Tag partner ID (numeric)                    */
+  var VELOCE_ANALYTICS = { ga4: 'G-25RHDFV0C7', metaPixel: '', linkedIn: '' };
+  (function (cfg) {
+    if (cfg.ga4) {
+      var g = document.createElement('script'); g.async = true;
+      g.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.ga4;
+      document.head.appendChild(g);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date()); window.gtag('config', cfg.ga4);
+    }
+    if (cfg.metaPixel) {
+      !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('init', cfg.metaPixel); window.fbq('track', 'PageView');
+    }
+    if (cfg.linkedIn) {
+      window._linkedin_partner_id = cfg.linkedIn;
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(cfg.linkedIn);
+      var l = document.createElement('script'); l.async = true; l.type = 'text/javascript';
+      l.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      document.head.appendChild(l);
+    }
+  })(VELOCE_ANALYTICS);
+
   /* ---- lab category filter -------------------------------------------- */
   const chips = document.querySelectorAll('.lab-filters .chip');
   if (chips.length) {

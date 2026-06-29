@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a deployment — Veloce AI</title>
+<meta name="description" content="Tell Veloce AI which role is bleeding hours and we'll deploy the autonomous FTE that owns it. Book a 20-minute demo or send us the brief." />
+<link rel="icon" type="image/png" href="assets/favicon.png?v=42" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=42" />
+<link rel="stylesheet" href="assets/purpledelight.css?v=42" />
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+  /* ---- Stage A: lead-capture form (scoped, on-brand) ---- */
+  .lead-wrap{max-width:1080px;margin:0 auto;padding:2.4rem 0 4rem}
+  .lead-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:1.6rem;align-items:start}
+  @media(max-width:840px){.lead-grid{grid-template-columns:1fr}}
+  .lead-form{padding:1.7rem 1.6rem;display:flex;flex-direction:column;gap:1rem}
+  .lf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:560px){.lf-row{grid-template-columns:1fr}}
+  .lf-field{display:flex;flex-direction:column;gap:.4rem}
+  .lf-field label{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--fog,#9aa3b2);font-family:var(--font-mono,monospace)}
+  .lf-field input,.lf-field select,.lf-field textarea{
+    width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+    border-radius:12px;padding:.72rem .85rem;color:#fff;font:inherit;font-size:.95rem;
+    transition:border-color .15s,box-shadow .15s;outline:none}
+  .lf-field textarea{resize:vertical;min-height:96px}
+  .lf-field input:focus,.lf-field select:focus,.lf-field textarea:focus{
+    border-color:var(--accent,#7a5cff);box-shadow:0 0 0 3px rgba(122,92,255,.18)}
+  .lf-field select option{background:#0b0d14;color:#fff}
+  .lf-note{font-size:.8rem;color:var(--muted,#6b7280);font-family:var(--font-mono,monospace);margin:0}
+  .lead-form .btn{justify-content:center;width:100%;margin-top:.2rem}
+  .form-status{display:none;font-size:.92rem;padding:.8rem 1rem;border-radius:12px;margin:0}
+  .form-status.ok{display:block;background:rgba(47,230,224,.1);border:1px solid rgba(47,230,224,.4);color:#7af5ee}
+  .form-status.err{display:block;background:rgba(237,28,36,.1);border:1px solid rgba(237,28,36,.4);color:#ff9aa0}
+  .demo-card{padding:1.7rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+  .demo-card h3{margin:.2rem 0 0}
+  .demo-card ul{list-style:none;margin:.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:.6rem}
+  .demo-card li{display:flex;gap:.6rem;align-items:flex-start;font-size:.94rem;color:var(--fog,#c4cad6)}
+  .demo-card li .ck{color:var(--accent,#7a5cff)}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+</style>
+</head>
+<body class="fx">
+<div class="void-base"></div>
+<div class="orbs"><span class="orb c1"></span><span class="orb c2"></span><span class="orb c3"></span></div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="brand-mark" src="assets/veloce-symbol.png?v=42" alt="Veloce-AI" /> <span class="brand-name">Veloce <span class="ai">AI</span></span></a>
+    <div class="nav-links">
+      <a href="index.html#engine">How it works</a>
+      <a href="index.html#fleet">The Fleet</a>
+      <a href="lab.html">The Lab</a>
+      <span class="nav-clock"><span class="dot"></span><span data-clock data-flap>00:00:00</span></span>
+    </div>
+    <div class="nav-cta">
+      <a href="index.html" class="btn btn-ghost" style="padding:.6rem 1.1rem">← Home</a>
+    </div>
+  </div>
+</nav>
+
+<section>
+  <div class="wrap lead-wrap">
+    <div class="section-head reveal" style="text-align:left;max-width:680px">
+      <span class="eyebrow">Start a shift</span>
+      <h2>Put an autonomous FTE to work.</h2>
+      <p>Tell us which role is bleeding hours — complaints, inbox, food cost, the camera no one watches — and we'll show you the <b>Full-Time-Equivalent</b> that owns it. We reply within one business day.</p>
+    </div>
+
+    <div class="lead-grid">
+      <!-- FORM -->
+      <form id="leadForm" class="lead-form glass reveal" autocomplete="on">
+        <!-- ⚙️ CONFIG: replace with your Web3Forms access key (free at https://web3forms.com — enter your email, paste the key it sends). -->
+        <input type="hidden" name="access_key" value="598c7af3-a4a9-45eb-a8c8-7d95d19d1917" />
+        <input type="hidden" name="subject" value="New Veloce AI deployment enquiry" />
+        <input type="hidden" name="from_name" value="Veloce AI website" />
+        <!-- honeypot: bots fill this, humans don't -->
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+        <div class="lf-row">
+          <div class="lf-field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" required placeholder="Jane Doe" />
+          </div>
+          <div class="lf-field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" required placeholder="jane@company.com" />
+          </div>
+        </div>
+
+        <div class="lf-row">
+          <div class="lf-field">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" required placeholder="Company name" />
+          </div>
+          <div class="lf-field">
+            <label for="role_title">Your role</label>
+            <input id="role_title" name="role_title" type="text" placeholder="Ops / CX / Founder…" />
+          </div>
+        </div>
+
+        <div class="lf-field">
+          <label for="interest">Which role do you want to automate?</label>
+          <select id="interest" name="interest">
+            <option value="Complaints / CX">Complaints / customer experience</option>
+            <option value="Back-office / Finance">Back-office / finance ops</option>
+            <option value="Inbox / Assistant">Inbox &amp; delegation (chief of staff)</option>
+            <option value="Security / Vision">Security / camera monitoring</option>
+            <option value="Other / Not sure">Something else / not sure yet</option>
+          </select>
+        </div>
+
+        <div class="lf-field">
+          <label for="message">What's the job, and how much volume?</label>
+          <textarea id="message" name="message" placeholder="e.g. ~400 complaints/week across web + WhatsApp, 2 staff handling them…"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="leadSubmit">Send the brief <span class="arr">→</span></button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <p class="lf-note">We never share your details. Prefer to talk? Book a live demo →</p>
+      </form>
+
+      <!-- DEMO BOOKING -->
+      <aside class="demo-card glass reveal">
+        <span class="eyebrow">Faster path</span>
+        <h3>Book a 20-min demo</h3>
+        <p style="color:var(--fog,#c4cad6);font-size:.95rem;margin:.2rem 0 0">Watch an autonomous FTE actually run — Watch → Reason → Act → Report — on a live sandbox. No slides.</p>
+        <!-- ⚙️ CONFIG: replace href with your Calendly link (free at https://calendly.com). -->
+        <a href="https://calendly.com/sanjum77/30min" target="_blank" rel="noopener" class="btn btn-primary" id="bookDemo" style="justify-content:center">Pick a time <span class="arr">→</span></a>
+        <ul>
+          <li><span class="ck">✦</span><span>See the agent work end-to-end on a demo brand.</span></li>
+          <li><span class="ck">✦</span><span>We split what runs <b>today</b> from the <b>roadmap</b> — no vaporware.</span></li>
+          <li><span class="ck">✦</span><span>Leave with a deployment plan for one role.</span></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:none">
+      <span>© 2026 Veloce AI · Autonomous Intelligence. Always On.</span>
+      <span>Fleet online · <span data-clock>00:00:00</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js?v=43"></script>
+<script>
+/* ---- Stage A: lead form submit (Web3Forms, no backend) ---- */
+(function () {
+  var form = document.getElementById('leadForm');
+  if (!form) return;
+  var statusEl = document.getElementById('formStatus');
+  var btn = document.getElementById('leadSubmit');
+  var KEY_PLACEHOLDER = 'YOUR_WEB3FORMS_ACCESS_KEY';
+
+  function setStatus(msg, type) { statusEl.className = 'form-status ' + type; statusEl.textContent = msg; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var key = form.querySelector('[name="access_key"]').value;
+    if (key === KEY_PLACEHOLDER) {
+      setStatus('Form not configured yet — add your Web3Forms access key in contact.html.', 'err');
+      return;
+    }
+    btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending…';
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          setStatus("Got it — we'll be in touch within one business day.", 'ok');
+          form.reset();
+          if (window.gtag) gtag('event', 'generate_lead', { method: 'contact_form' });
+          if (window.fbq) fbq('track', 'Lead');
+        } else {
+          setStatus(data.message || 'Something went wrong — email info@veloce-ai.com instead.', 'err');
+        }
+      })
+      .catch(function () { setStatus('Network error — email info@veloce-ai.com instead.', 'err'); })
+      .finally(function () { btn.disabled = false; btn.innerHTML = label; });
+  });
+
+  var book = document.getElementById('bookDemo');
+  if (book) book.addEventListener('click', function () {
+    if (window.gtag) gtag('event', 'book_demo_click');
+    if (window.fbq) fbq('track', 'Schedule');
+  });
+})();
+</script>
+</body>
+</html>

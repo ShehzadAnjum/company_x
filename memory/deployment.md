@@ -28,6 +28,20 @@ warm-paper directions are kept as noindex alternates: `index-v3.html` (`styles-v
 - Re-deploy after changes: same `wrangler pages deploy site …` command (env loaded from `.env`).
 - Pages auto-redirects `*.html` → clean URLs (308); links still work.
 
+**Email Routing (Cloudflare, enabled 2026-06-28):** `veloce-ai.com` now has CF Email Routing on
+(MX → `route1/2/3.mx.cloudflare.net`, SPF TXT auto-added). Verified destinations: **sanjum77@gmail.com**
+(account email, auto-verified) + **0hamza.shehzad0@gmail.com** (Hamza, verified 2026-06-28). Rules:
+explicit **sales@** and **info@** plus a **catch-all** (`*@veloce-ai.com`) — **all route to the Email Worker
+`veloce-email-fanout`**, which `message.forward()`s (per-inbox try/catch) to sanjum77@gmail.com + 0hamza.shehzad0@gmail.com +
+veloce.sh@gmail.com (the 3rd verified 2026-06-28; until a dest verifies its forward fails silently, others unaffected).
+Worker source: `workers/email-fanout/` (deploy: `cd workers/email-fanout && npx wrangler@4 deploy`); edit the
+`TEAM` array to change recipients (new addresses must be verified destinations first).
+⚠️ **Why the Worker:** Cloudflare ER maps each rule to ONE destination — a 2-address `forward.value` array is
+accepted by the API but the mail edge **rejects it** (`550 5.1.1 Address does not exist`); this bit us 2026-06-28
+(worked single-dest, broke when Hamza was added as a 2nd value). Fan-out MUST go through a Worker. Edit rules
+via API (`/zones/<id>/email/routing/rules` + `…/rules/catch_all`); a forward dest must be verified first (err 2054). Managed with
+the account `CLOUDFLARE_API_TOKEN` in `.env`.
+
 **`reports/` is intentionally NOT published** — output dir is `site`, so the 25 internal strategy
 dossiers + `MASTER_REPORT.md` stay private. Consequence: `lab.html`'s per-product "open dossier"
 links (`../reports/projects/*.md`) **404 in production** — open follow-up (neutralize those links,
