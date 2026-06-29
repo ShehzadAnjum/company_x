@@ -158,11 +158,10 @@ body.scrolled nav .brand-mark{ opacity:1; max-width:110px; margin-right:0; }
 .concept-ic{ height:58px; width:auto; display:block; margin:0 auto 1rem; filter:drop-shadow(0 6px 18px rgba(168,85,247,.4)); }
 .concept h3{ font-size:1.08rem; font-weight:600; margin-bottom:.5rem; }
 .concept p{ color:var(--fog); font-size:.86rem; line-height:1.55; }
-/* "Full Time Equivalent Employee" — F·T·E initials read like the rest of the
-   sentence (normal weight/size), just a touch brighter than the body text */
-.fte i{ font-style:normal; font-weight:inherit; font-size:1em; letter-spacing:normal;
-  background:none; -webkit-background-clip:border-box; background-clip:border-box;
-  color:#fff; -webkit-text-fill-color:#fff; }
+/* "Full Time Equivalent Employee" — the F·T·E initials styled to stand out */
+.fte i{ font-style:normal; font-weight:700; font-size:1.05em; letter-spacing:.01em;
+  background:var(--ai-grad-2); -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent; }
 
 /* infinity mark as the CTA card's backdrop (behind the text, not covered) */
 .final-card{ position:relative; overflow:hidden; }
@@ -190,7 +189,7 @@ nav .wrap{ width:auto; max-width:none; margin-inline:0; padding-left:clamp(1rem,
 /* logo with the phonetic line beside it on the right */
 .mh-row{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
 .mh-row .veloce-pron{ margin:0; position:relative; top:.7rem; }
-.masthead-logo{ display:block; height:auto; width:min(340px,60vw); margin-top:0; flex:none; filter:drop-shadow(0 8px 28px rgba(124,58,237,.5)); }
+.masthead-logo{ display:block; height:auto; width:min(250px,52vw); margin-top:0; flex:none; filter:drop-shadow(0 8px 28px rgba(124,58,237,.5)); }
 .masthead-tagline{ display:block; height:auto; width:min(500px,86vw); margin-top:.85rem; opacity:.96; }
 .hero-claim{ max-width:50rem; margin:1.3rem 0 .3rem; color:#fff; font-family:var(--font-display);
   font-weight:500; font-size:clamp(1.18rem,1.6vw,1.62rem); line-height:1.35; letter-spacing:-.005em; }

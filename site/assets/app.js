@@ -12,9 +12,29 @@
   });
 
   /* ---- nav brand fades in on scroll (the hero's big logo owns the top) -- */
-  const onNavScroll = () => document.body.classList.toggle('scrolled', window.scrollY > 150);
-  onNavScroll();
+  /* Progressive header: glass pill appears on the first bit of scroll, then
+     shortens with scroll distance so the logo + CTA draw toward the centre.
+     The pill width is EASED every frame (rAF lerp) toward the scroll target,
+     so every movement glides smoothly instead of snapping per scroll event. */
+  const NAV_START = 18, NAV_RANGE = 460;
+  let navTarget = 0, navCur = 0, navRAF = null;
+  const setTarget = () => {
+    const y = window.scrollY;
+    document.body.classList.toggle('scrolled', y > NAV_START);
+    navTarget = Math.min(1, Math.max(0, (y - NAV_START) / NAV_RANGE));
+  };
+  const tick = () => {
+    navCur += (navTarget - navCur) * 0.12;                  // ease toward target
+    if (Math.abs(navTarget - navCur) < 0.0005) navCur = navTarget;
+    const maxW = Math.min(window.innerWidth * 0.92, 1500);  // first-scroll pill (a little shortened)
+    const minW = Math.min(660, maxW);                       // fully converged pill
+    document.documentElement.style.setProperty('--navw', (maxW - (maxW - minW) * navCur) + 'px');
+    navRAF = (navCur !== navTarget) ? requestAnimationFrame(tick) : null;
+  };
+  const onNavScroll = () => { setTarget(); if (!navRAF) navRAF = requestAnimationFrame(tick); };
+  setTarget(); navCur = navTarget; tick();
   window.addEventListener('scroll', onNavScroll, { passive: true });
+  window.addEventListener('resize', onNavScroll, { passive: true });
 
   /* ---- mobile menu ----------------------------------------------------- */
   const burger = document.querySelector('.nav-burger');

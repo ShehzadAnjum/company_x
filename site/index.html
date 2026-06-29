@@ -5,21 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Veloce AI — The Restless Workforce · Autonomous FTEs that never sleep</title>
 <meta name="description" content="Veloce AI builds autonomous Full-Time-Equivalents — AI agents that run your back office, inbox, security and customer operations 24/7. Native AI, not bolted on." />
-<link rel="icon" type="image/png" href="assets/favicon.png?v=42" />
+<link rel="icon" type="image/png" href="assets/favicon.png?v=38" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=42" />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@200;300;400;500;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=40" />
 <!-- Active skin — index.html ONLY; other pages keep the original theme.
      Swap this one line to change the landing look:
        assets/purpledelight.css   = deep-violet "PurpleDelight" style (active)
        assets/mystyle-ideal.css   = warm editorial "Ideal" style
        assets/orangefishsea.css   = navy/orange OrangeFishSea style
      (delete the line entirely to revert index.html to the original dark theme) -->
-<link rel="stylesheet" href="assets/purpledelight.css?v=42" />
+<link rel="stylesheet" href="assets/purpledelight.css?v=38" />
+<!-- Veloce brand alignment layer — real brand sheet (yellow/purple), custom
+     icons + illustrations. Loaded last so it owns the final look. -->
+<link rel="stylesheet" href="assets/veloce-brand.css?v=10" />
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<!-- Hero text reveal: word-by-word rise from a clipped baseline (hero h1 + sub only).
+     Text-only entrance — no font/color change; resting state is plain text.
+     No-JS fallback: without the splitter the raw text simply renders normally. -->
+<style id="reveal-text-fx">
+  .reveal-text .rmask{ display:inline-block; overflow:hidden; vertical-align:bottom; }
+  .reveal-text .rword{ display:inline-block; transform:translateY(115%); will-change:transform;
+    transition:transform .9s cubic-bezier(.16,1,.3,1); }
+  .reveal-text.in .rword{ transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal-text .rword{ transform:none; transition:none; }
+  }
+</style>
+<!-- Stage A: lead-capture form embedded in the #final section (scoped, on-brand) -->
+<style id="lead-form-fx">
+  .lead-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:1.6rem;align-items:start;text-align:left;margin-top:1.8rem}
+  @media(max-width:840px){.lead-grid{grid-template-columns:1fr}}
+  .lead-form{padding:1.7rem 1.6rem;display:flex;flex-direction:column;gap:1rem}
+  .lf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:560px){.lf-row{grid-template-columns:1fr}}
+  .lf-field{display:flex;flex-direction:column;gap:.4rem}
+  .lf-field label{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--fog,#9aa3b2);font-family:var(--font-mono,monospace)}
+  .lf-field input,.lf-field select,.lf-field textarea{
+    width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+    border-radius:12px;padding:.72rem .85rem;color:#fff;font:inherit;font-size:.95rem;
+    transition:border-color .15s,box-shadow .15s;outline:none}
+  .lf-field textarea{resize:vertical;min-height:96px}
+  .lf-field input:focus,.lf-field select:focus,.lf-field textarea:focus{
+    border-color:var(--accent,#7a5cff);box-shadow:0 0 0 3px rgba(122,92,255,.18)}
+  .lf-field select option{background:#0b0d14;color:#fff}
+  .lf-note{font-size:.8rem;color:var(--muted,#6b7280);font-family:var(--font-mono,monospace);margin:0}
+  .lead-form .btn{justify-content:center;width:100%;margin-top:.2rem}
+  .form-status{display:none;font-size:.92rem;padding:.8rem 1rem;border-radius:12px;margin:0}
+  .form-status.ok{display:block;background:rgba(47,230,224,.1);border:1px solid rgba(47,230,224,.4);color:#7af5ee}
+  .form-status.err{display:block;background:rgba(237,28,36,.1);border:1px solid rgba(237,28,36,.4);color:#ff9aa0}
+  .demo-card{padding:1.7rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+  .demo-card h3{margin:.2rem 0 0}
+  .demo-card ul{list-style:none;margin:.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:.6rem}
+  .demo-card li{display:flex;gap:.6rem;align-items:flex-start;font-size:.94rem;color:var(--fog,#c4cad6)}
+  .demo-card li .ck{color:var(--accent,#7a5cff)}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+</style>
 </head>
 <body class="fx">
+
+<!-- INTRO splash — black screen with the name + placeholder; click/any key to enter.
+     Later: drop a <video class="intro-video" autoplay muted playsinline> into .intro-inner. -->
+<div id="intro" role="dialog" aria-label="Intro — click to enter">
+  <div class="intro-inner">
+    <img class="intro-logo" src="assets/veloce-yellow.png?v=1" alt="Veloce" />
+    <div class="intro-tag">Intro Here</div>
+    <div class="intro-hint">Click anywhere to enter</div>
+  </div>
+</div>
+<noscript><style>#intro{display:none!important}</style></noscript>
+<script>
+(function(){
+  var intro = document.getElementById('intro');
+  if(!intro) return;
+  document.body.classList.add('intro-lock');
+  var done = false;
+  function enter(){
+    if(done) return; done = true;
+    intro.classList.add('hide');
+    document.body.classList.remove('intro-lock');
+    window.removeEventListener('keydown', onKey);
+    setTimeout(function(){ if(intro.parentNode) intro.parentNode.removeChild(intro); }, 650);
+  }
+  function onKey(){ enter(); }
+  intro.addEventListener('click', enter);
+  window.addEventListener('keydown', onKey);
+})();
+</script>
+
 <div class="void-base"></div>
 <div class="orbs"><span class="orb c1"></span><span class="orb c2"></span><span class="orb c3"></span></div>
 <div class="grid-bg"></div>
@@ -27,17 +101,15 @@
 <!-- NAV -->
 <nav>
   <div class="wrap">
-    <a class="brand" href="index.html"><img class="brand-mark" src="assets/veloce-symbol.png?v=42" alt="Veloce-AI" /> <span class="brand-name">Veloce <span class="ai">AI</span></span></a>
+    <a class="brand" href="index.html"><img class="brand-word" src="assets/veloce-yellow.png?v=1" alt="Veloce" /><img class="brand-sym" src="assets/veloce-v.png?v=1" alt="Veloce" /></a>
     <div class="nav-links">
       <a href="#engine">How it works</a>
       <a href="#fleet">The Fleet</a>
       <a href="lab.html">The Lab</a>
       <a href="#platform">Platform</a>
-      <span class="nav-clock"><span class="dot"></span><span data-clock data-flap>00:00:00</span></span>
     </div>
     <div class="nav-cta">
-      <a href="contact.html" class="btn btn-ghost" style="padding:.6rem 1.1rem">Talk to us</a>
-      <a href="contact.html" class="btn btn-primary" style="padding:.6rem 1.2rem">Deploy an FTE</a>
+      <a href="#final" class="btn btn-primary" style="padding:.6rem 1.2rem">Talk to us</a>
     </div>
     <div class="nav-burger"><span></span><span></span><span></span></div>
   </div>
@@ -60,7 +132,7 @@
     <div class="hero-copy">
       <div class="hero-masthead reveal">
         <div class="mh-row">
-          <img class="masthead-logo" src="assets/veloce-logo.png?v=42" alt="Veloce-AI" />
+          <img class="masthead-logo" src="assets/veloce-yellow.png?v=1" alt="Veloce" />
           <div class="veloce-pron" aria-hidden="true">
             <div class="pron-track">
               <span class="pron-text"><b class="pron-word">veh-LOH-cheh</b> — the Italian way of saying Fast, Swift, Efficient</span>
@@ -74,10 +146,10 @@
             </div>
           </div>
         </div>
-        <img class="masthead-tagline" src="assets/veloce-tagline.png?v=42" alt="Autonomous Intelligence. Always On." />
+        <img class="masthead-tagline" src="assets/veloce-tagline.png?v=38" alt="Autonomous Intelligence. Always On." />
       </div>
-      <h1 class="reveal">Hire the <span class="ai-grad-text">machine.</span><br>The workforce that never sleeps.</h1>
-      <p class="sub reveal">Veloce AI builds autonomous <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employees</span> — AI workers that own a job end to end and run 24/7. They triage, decide, act and report; you stay in the loop only where it counts.</p>
+      <h1 class="reveal-text">Hire the <span class="ai-grad-text">machine.</span><br>The workforce that never sleeps.</h1>
+      <p class="sub reveal-text">Veloce AI builds autonomous <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employees</span> — AI workers that own a job end to end and run 24/7. They triage, decide, act and report; you stay in the loop only where it counts.</p>
       <div class="hero-cta reveal">
         <a href="#fleet" class="btn btn-primary">Meet the fleet <span class="arr">→</span></a>
         <a href="#engine" class="btn btn-ghost">See how an FTE works</a>
@@ -97,10 +169,10 @@
           <radialGradient id="botHead" cx="34%" cy="22%" r="92%"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.12" stop-color="#DEE4EB"/><stop offset="0.4" stop-color="#9CA7B2"/><stop offset="0.7" stop-color="#4C545E"/><stop offset="1" stop-color="#1B2026"/></radialGradient>
           <linearGradient id="botMetal" x1="0.2" y1="0" x2="0.55" y2="1"><stop offset="0" stop-color="#F3F6F9"/><stop offset="0.45" stop-color="#A7B0BA"/><stop offset="1" stop-color="#2D333C"/></linearGradient>
           <linearGradient id="botPed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5C646E"/><stop offset="0.5" stop-color="#2A2F37"/><stop offset="1" stop-color="#0C0F13"/></linearGradient>
-          <radialGradient id="botSpot" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2FE6E0" stop-opacity=".5"/><stop offset="70%" stop-color="#2FE6E0" stop-opacity="0"/></radialGradient>
+          <radialGradient id="botSpot" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E2FE3C" stop-opacity=".5"/><stop offset="70%" stop-color="#E2FE3C" stop-opacity="0"/></radialGradient>
           <radialGradient id="botEye" cx="40%" cy="32%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset="100%" stop-color="#DCE6EC"/></radialGradient>
           <radialGradient id="botVisor" cx="50%" cy="16%" r="92%"><stop offset="0" stop-color="#2D333C"/><stop offset="0.5" stop-color="#14171C"/><stop offset="1" stop-color="#0A0C0F"/></radialGradient>
-          <radialGradient id="botCheek" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2FE6E0" stop-opacity=".22"/><stop offset="100%" stop-color="#2FE6E0" stop-opacity="0"/></radialGradient>
+          <radialGradient id="botCheek" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E2FE3C" stop-opacity=".22"/><stop offset="100%" stop-color="#E2FE3C" stop-opacity="0"/></radialGradient>
         </defs>
         <ellipse class="bot-spot" cx="180" cy="402" rx="148" ry="34" fill="url(#botSpot)"/>
         <g class="bot-ped">
@@ -117,7 +189,7 @@
           <ellipse cx="180" cy="250" rx="54" ry="12" fill="#0A0C10" opacity=".4"/>
           <g class="bot-head">
             <line x1="180" y1="96" x2="180" y2="70" stroke="#CFD6DD" stroke-width="4" stroke-linecap="round"/>
-            <circle class="bot-anten" cx="180" cy="63" r="8" fill="#2FE6E0"/>
+            <circle class="bot-anten" cx="180" cy="63" r="8" fill="#E2FE3C"/>
             <circle cx="100" cy="172" r="18" fill="url(#botMetal)" stroke="#E3E9EF" stroke-opacity=".3"/>
             <circle cx="260" cy="172" r="18" fill="url(#botMetal)" stroke="#E3E9EF" stroke-opacity=".3"/>
             <circle cx="100" cy="172" r="7" fill="#E8EDF2" opacity=".65"/>
@@ -146,22 +218,22 @@
     </div>
   </div>
 
-  <div class="wrap hero-console">
-    <!-- AI command bar -->
-    <div class="cmdbar glass reveal">
-      <div class="spark">✦</div>
-      <div class="typed" data-type='["Deploy an FTE for our complaints desk.","Triage my inbox and chase the delegations.","Watch Gate 2 and alert me on intrusions.","Turn last week&apos;s sales into a charted report."]'><span class="cur"></span></div>
-      <div class="go">⏎ Deploy</div>
-    </div>
-    <div class="ai-answer glass reveal">
-      <div class="who"><span class="pulse"></span> Veloce AI FLEET · 5 FTEs on shift · <span data-clock>00:00:00</span></div>
-      <div class="line"><span class="k">FTE-03</span><span>Classified <b>"POS down at Sehar"</b> → urgent; task assigned to ops.</span><span class="ok">✓ assigned</span></div>
-      <div class="line"><span class="k">FTE-04</span><span>Receiving anomaly: <b>10,000 cases ≠ pieces</b> · ₨ exposure flagged.</span><span class="ok">⚑ flagged</span></div>
-      <div class="line"><span class="k">FTE-02</span><span>Turned a plain request into a <b>charted Excel report</b>.</span><span class="ok">✓ sent</span></div>
-      <div class="line"><span class="k">FTE-05</span><span>Zone breach at <b>Gate 2</b> · annotated snapshot dispatched.</span><span class="ok">→ WhatsApp</span></div>
+</header>
+
+<!-- TESTIMONIALS · fanned card stack, center card popped up; arrows / click to cycle -->
+<section class="testimonials-section">
+  <div class="wrap"><div class="label reveal">From the field</div></div>
+  <div class="testimonials" aria-label="Testimonials">
+    <div class="t-nav">
+      <button class="t-prev" aria-label="Previous testimonial">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="t-next" aria-label="Next testimonial">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
-</header>
+</section>
 
 <!-- HERITAGE STRIP -->
 <div class="compliance">
@@ -180,24 +252,30 @@
 <!-- THESIS -->
 <section id="why">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">The thesis</span>
-      <h2>A headcount you don't have to grow.</h2>
-      <p>A Veloce AI <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employee</span> isn't a chatbot bolted onto a SaaS. It's an AI worker built agent-first — it watches the channels you already use, reasons over your real data, and does the job. No salaries, no shifts, no attrition.</p>
+    <div class="split reveal">
+      <div class="split-copy section-head">
+        <span class="eyebrow">The thesis</span>
+        <h2>A headcount you don't have to grow.</h2>
+        <p>A Veloce AI <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employee</span> isn't a chatbot bolted onto a SaaS. It's an AI worker built agent-first — it watches the channels you already use, reasons over your real data, and does the job. No salaries, no shifts, no attrition.</p>
+      </div>
+      <div class="ill-figure">
+        <img class="brand-ill" src="assets/ill-brain.png?v=1" alt="A neural core wired into your operations" />
+        <span class="ill-cap">One intelligence, wired into the work</span>
+      </div>
     </div>
     <div class="pillars">
       <div class="pillar glass reveal">
-        <div class="ic">💸</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-growth.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Cost out, not headcount up</h3>
         <p>Each <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employee</span> absorbs the repetitive, always-on work of a human seat — often several — at a fraction of the loaded cost.</p>
       </div>
       <div class="pillar glass reveal">
-        <div class="ic">🎯</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-target.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Machine-grade perfection</h3>
         <p>Consistent, auditable, tireless. Every action is logged; nothing gets bored, distracted or skips the checklist at 3am.</p>
       </div>
       <div class="pillar glass reveal">
-        <div class="ic">✦</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-bot.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Native AI, long memory</h3>
         <p>We've tracked and adopted every wave of AI as it landed. These products are designed around autonomous agents — not retrofitted with one.</p>
       </div>
@@ -214,10 +292,10 @@
       <p>The mark is an infinity loop on purpose — Veloce AI never clocks out. Four ideas it stands for:</p>
     </div>
     <div class="concept-grid">
-      <div class="concept glass reveal"><img class="concept-ic" src="assets/concept-always.png?v=42" alt="" aria-hidden="true" /><h3>24 / 7 / 365</h3><p>Always on. Never off. Every moment.</p></div>
-      <div class="concept glass reveal"><img class="concept-ic" src="assets/concept-intelligent.png?v=42" alt="" aria-hidden="true" /><h3>Intelligent</h3><p>AI-powered insights. Smarter decisions. Adaptive by design.</p></div>
-      <div class="concept glass reveal"><img class="concept-ic" src="assets/concept-autonomous.png?v=42" alt="" aria-hidden="true" /><h3>Autonomous</h3><p>Self-operating. Self-improving. Self-sustaining.</p></div>
-      <div class="concept glass reveal"><img class="concept-ic" src="assets/concept-scalable.png?v=42" alt="" aria-hidden="true" /><h3>Scalable</h3><p>Built to grow. Built to scale. Built to lead.</p></div>
+      <div class="concept glass reveal"><img class="concept-ic" src="assets/ic-infinity.png?v=1" alt="" aria-hidden="true" /><h3>24 / 7 / 365</h3><p>Always on. Never off. Every moment.</p></div>
+      <div class="concept glass reveal"><img class="concept-ic" src="assets/ic-bot.png?v=1" alt="" aria-hidden="true" /><h3>Intelligent</h3><p>AI-powered insights. Smarter decisions. Adaptive by design.</p></div>
+      <div class="concept glass reveal"><img class="concept-ic" src="assets/ic-target.png?v=1" alt="" aria-hidden="true" /><h3>Autonomous</h3><p>Self-operating. Self-improving. Self-sustaining.</p></div>
+      <div class="concept glass reveal"><img class="concept-ic" src="assets/ic-growth.png?v=1" alt="" aria-hidden="true" /><h3>Scalable</h3><p>Built to grow. Built to scale. Built to lead.</p></div>
     </div>
   </div>
 </section>
@@ -225,36 +303,42 @@
 <!-- ENGINE -->
 <section id="engine" class="engine">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">How a Digital FTE works</span>
-      <h2>Watch. Reason. Act. Report.</h2>
-      <p>The same loop powers every unit in the fleet — pointed at a different job, on the channels that job already lives on.</p>
+    <div class="split reverse reveal">
+      <div class="ill-figure ill-fleet-stage">
+        <img class="brand-ill" src="assets/ill-aicore.png?v=1" alt="The agent core that powers every FTE" />
+        <span class="ill-cap">The agent core every unit shares</span>
+      </div>
+      <div class="split-copy section-head">
+        <span class="eyebrow">How a Digital FTE works</span>
+        <h2>Watch. Reason. Act. Report.</h2>
+        <p>The same loop powers every unit in the fleet — pointed at a different job, on the channels that job already lives on.</p>
+      </div>
     </div>
     <div class="pipeline">
       <div class="pstep glass reveal">
         <div class="num">01 · WATCH</div>
-        <div class="ic">📡</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-camera.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Sense</h3>
         <p>Watches email, WhatsApp, cameras, ledgers and dashboards — the inputs the job already runs on.</p>
         <span class="arrow">→</span>
       </div>
       <div class="pstep glass reveal">
         <div class="num">02 · REASON</div>
-        <div class="ic">✦</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-bot.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Understand</h3>
         <p>Classifies, scores urgency, detects anomalies and decides the next step — judgment, not just keywords.</p>
         <span class="arrow">→</span>
       </div>
       <div class="pstep glass reveal">
         <div class="num">03 · ACT</div>
-        <div class="ic">⚡</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-target.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Do the work</h3>
         <p>Drafts the reply, opens the task, flags the loss, fires the alert — under policy, with approval where it matters.</p>
         <span class="arrow">→</span>
       </div>
       <div class="pstep glass reveal">
         <div class="num">04 · REPORT</div>
-        <div class="ic">📊</div>
+        <div class="ic"><img class="brand-ic" src="assets/ic-growth.png?v=1" alt="" aria-hidden="true" /></div>
         <h3>Account for it</h3>
         <p>Every action logged and explainable; briefings and summaries pushed to the human in command.</p>
       </div>
@@ -270,10 +354,14 @@
       <h2>Five Digital <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employees</span>, each replacing a role.</h2>
       <p>Every unit is shown as the job it does. We separate what runs <b>today</b> from what's on the <b>roadmap</b> — on every page, no exceptions.</p>
     </div>
+    <div class="ill-figure ill-fleet-stage reveal" style="margin:0 auto 2.6rem;max-width:760px">
+      <img class="brand-ill" src="assets/ill-fleet.png?v=1" alt="A core intelligence orchestrating role-specific AI agents — HR, finance, sales, support, ops and more" />
+      <span class="ill-cap">One core, a role-built agent for every desk</span>
+    </div>
     <div class="fleet-grid">
 
       <a class="unit glass reveal" href="products/complainthub.html">
-        <div class="unit-top"><div class="unit-badge">💬</div><div class="unit-code">FTE-01</div></div>
+        <div class="unit-top"><div class="unit-badge"><img src="assets/ic-chat.png?v=1" alt="" aria-hidden="true" /></div><div class="unit-code">FTE-01</div></div>
         <div><div class="unit-role">AI Complaints Officer</div><h3>ComplaintHub</h3></div>
         <p class="unit-hook">Every complaint, every channel — web, email, WhatsApp — into one audited system of record that routes, tracks and auto-resolves. The portfolio's proof point.</p>
         <div class="unit-tags"><span class="tag tag-prod"><span class="dot"></span> Live in production</span><span class="tag">CX</span></div>
@@ -281,7 +369,7 @@
       </a>
 
       <a class="unit glass reveal" href="products/personal-ai-employee.html">
-        <div class="unit-top"><div class="unit-badge">📊</div><div class="unit-code">FTE-02</div></div>
+        <div class="unit-top"><div class="unit-badge"><img src="assets/ic-growth.png?v=1" alt="" aria-hidden="true" /></div><div class="unit-code">FTE-02</div></div>
         <div><div class="unit-role">AI Back-Office Clerk</div><h3>Personal AI Employee</h3></div>
         <p class="unit-hook">Watches Gmail, WhatsApp and Xero; triages work across a Kanban; and turns a plain-English request into a charted, multi-sheet Excel finance report — while you sleep.</p>
         <div class="unit-tags"><span class="tag tag-live">MVP · real OAuth</span><span class="tag">Back-office</span></div>
@@ -289,7 +377,7 @@
       </a>
 
       <a class="unit glass reveal" href="products/aria-assistant.html">
-        <div class="unit-top"><div class="unit-badge">✉️</div><div class="unit-code">FTE-03</div></div>
+        <div class="unit-top"><div class="unit-badge"><img src="assets/ic-bot.png?v=1" alt="" aria-hidden="true" /></div><div class="unit-code">FTE-03</div></div>
         <div><div class="unit-role">AI Chief of Staff</div><h3>Aria — Personal Assistant</h3></div>
         <p class="unit-hook">Watches two inboxes and WhatsApp 24/7, classifies every message, drafts replies in <em>your</em> voice, and opens, chases and auto-closes the tasks you delegate.</p>
         <div class="unit-tags"><span class="tag tag-live">Deployed MVP</span><span class="tag">Comms</span></div>
@@ -297,7 +385,7 @@
       </a>
 
       <a class="unit glass reveal" href="products/operanova.html">
-        <div class="unit-top"><div class="unit-badge">🍽️</div><div class="unit-code">FTE-04</div></div>
+        <div class="unit-top"><div class="unit-badge"><img src="assets/ic-target.png?v=1" alt="" aria-hidden="true" /></div><div class="unit-code">FTE-04</div></div>
         <div><div class="unit-role">AI Cost Controller</div><h3>OperaNova Auto-FTE</h3></div>
         <p class="unit-hook">The back-office employee who already read every report. Five live anomaly detectors screen every delivery and flag the costly ones — with the rupee exposure attached.</p>
         <div class="unit-tags"><span class="tag tag-live">Strong MVP</span><span class="tag">F&amp;B ops</span></div>
@@ -305,7 +393,7 @@
       </a>
 
       <a class="unit glass reveal" href="products/vision-alert.html">
-        <div class="unit-top"><div class="unit-badge">👁️</div><div class="unit-code">FTE-05</div></div>
+        <div class="unit-top"><div class="unit-badge"><img src="assets/ic-camera.png?v=1" alt="" aria-hidden="true" /></div><div class="unit-code">FTE-05</div></div>
         <div><div class="unit-role">AI Security Guard</div><h3>Vision Alert</h3></div>
         <p class="unit-hook">Turns the Dahua NVR you already own into a tireless 24/7 watcher — YOLO11 detection, object tracking and zone rules that fire a WhatsApp snapshot in seconds.</p>
         <div class="unit-tags"><span class="tag tag-live">MVP · NVR-proven</span><span class="tag">Vision</span></div>
@@ -313,7 +401,7 @@
       </a>
 
       <div class="unit glass reveal" style="justify-content:center;text-align:center">
-        <div class="unit-badge" style="margin:0 auto">🧪</div>
+        <div class="unit-badge" style="margin:0 auto"><img src="assets/ic-lab.png?v=1" alt="" aria-hidden="true" /></div>
         <h3 style="margin-top:.4rem">+ 20 more in the lab</h3>
         <p class="unit-hook" style="text-align:center">Security, fintech, edtech, voice, content, trading — field-ready, incubating, and the platform capabilities that power them all.</p>
         <a href="lab.html" class="btn btn-ghost" style="align-self:center">Explore the lab <span class="arr">→</span></a>
@@ -322,8 +410,67 @@
   </div>
 </section>
 
+<!-- OUR PROCESS — scroll-drawn serpentine path linking the deployment steps -->
+<section id="process" class="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our process</span>
+      <h2>From first call to a <span class="ai-grad-text">live FTE.</span></h2>
+      <p>A streamlined, honest path — we scope the work, wire it into the tools you already use, and only ever put what's real into production.</p>
+    </div>
+    <div class="proc-track" data-proc>
+      <svg class="proc-svg" preserveAspectRatio="none" aria-hidden="true">
+        <path class="proc-line-bg" d="" fill="none" />
+        <path class="proc-line" d="" fill="none" />
+      </svg>
+      <div class="proc-steps">
+        <div class="proc-step left">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num">01</span>
+          <h3>Find the bleeding role</h3>
+          <p>We map the job draining your hours — the inbox, the complaints queue, the food cost, the camera no one watches — and the channels it already runs on.</p>
+        </div>
+        <div class="proc-step right">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num">02</span>
+          <h3>Scope the FTE</h3>
+          <p>We define exactly what the <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent</span> owns end to end, the policy it follows, and the points where a human stays in command.</p>
+        </div>
+        <div class="proc-step left">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num">03</span>
+          <h3>Wire it in</h3>
+          <p>We connect it to your existing stack — Gmail, WhatsApp, cameras, ledgers, dashboards — and ground it in your real data and playbooks. No rebuild.</p>
+        </div>
+        <div class="proc-step right">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num">04</span>
+          <h3>Deploy to production</h3>
+          <p>The FTE goes live: watching, reasoning, acting and reporting 24/7 — with approval gates wherever the stakes are high.</p>
+        </div>
+        <div class="proc-step left">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num">05</span>
+          <h3>Measure &amp; scale</h3>
+          <p>Every action is logged and explainable. Once it's proven on one role, we point the same platform at the next.</p>
+        </div>
+      </div>
+    </div>
+    <div class="proc-cta reveal">
+      <h3>Not sure where to start?</h3>
+      <a class="btn btn-primary" href="#final">Find the role to automate first <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- PLATFORM -->
 <section id="platform" class="copilot">
+  <div class="wrap">
+    <div class="ill-figure reveal" style="margin:0 auto 2.4rem;max-width:340px">
+      <img class="brand-ill" src="assets/ill-security.png?v=1" alt="Hardened, audited infrastructure under the platform" />
+      <span class="ill-cap">Tenancy · audit · RBAC, by design</span>
+    </div>
+  </div>
   <div class="wrap copilot-grid">
     <div class="reveal">
       <span class="eyebrow">The platform underneath</span>
@@ -347,7 +494,11 @@
 
 <!-- HONESTY -->
 <section style="padding-top:0">
-  <div class="wrap">
+  <div class="wrap split">
+    <div class="ill-figure">
+      <img class="brand-ill" src="assets/ill-product.png?v=1" alt="A real Veloce product running on desktop and mobile" />
+      <span class="ill-cap">What we demo is what runs</span>
+    </div>
     <div class="honesty-card glass reveal">
       <span class="eyebrow">The Veloce AI rule</span>
       <h3>We never sell the roadmap as if it shipped.</h3>
@@ -364,9 +515,16 @@
 <!-- STATS -->
 <section>
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">The business case</span>
-      <h2>A workforce measured in shifts, not salaries.</h2>
+    <div class="split reverse reveal" style="margin-bottom:2.4rem">
+      <div class="ill-figure">
+        <img class="brand-ill" src="assets/ill-analytics.png?v=1" alt="Live performance dashboards tracking every FTE" />
+        <span class="ill-cap">Every shift, measured and reported</span>
+      </div>
+      <div class="split-copy section-head">
+        <span class="eyebrow">The business case</span>
+        <h2>A workforce measured in shifts, not salaries.</h2>
+        <p>Output you can put a number on — hours covered, anomalies caught, replies sent — not a seat on the payroll.</p>
+      </div>
     </div>
     <div class="stats-grid">
       <div class="stat reveal"><div class="n ai-grad-text"><span data-to="168">0</span></div><div class="l">hours each FTE works / week</div><small>vs a human's ~40 · target</small></div>
@@ -381,14 +539,78 @@
 <section class="final" id="final">
   <div class="wrap">
     <div class="final-card glass reveal">
-      <img class="brand-watermark" src="assets/veloce-symbol.png?v=42" alt="" aria-hidden="true" />
+      <img class="brand-watermark" src="assets/veloce-symbol.png?v=38" alt="" aria-hidden="true" />
+      <img class="brand-ill" src="assets/ill-savings.png?v=1" alt="" aria-hidden="true" style="max-width:188px;margin:0 auto .6rem" />
       <span class="eyebrow" style="justify-content:center;display:inline-flex">Start a shift</span>
       <h2>Put one to work <span class="ai-grad-text">this quarter.</span></h2>
       <p>Pick a role that's bleeding hours — inbox, complaints, food cost, the camera no one watches — and we'll deploy the <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employee</span> that owns it.</p>
-      <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-        <a href="contact.html" class="btn btn-primary">Book a deployment <span class="arr">→</span></a>
-        <a href="#fleet" class="btn btn-ghost">Review the fleet</a>
+
+      <div class="lead-grid">
+        <!-- FORM -->
+        <form id="leadForm" class="lead-form glass reveal" autocomplete="on">
+          <input type="hidden" name="access_key" value="598c7af3-a4a9-45eb-a8c8-7d95d19d1917" />
+          <input type="hidden" name="subject" value="New Veloce AI deployment enquiry" />
+          <input type="hidden" name="from_name" value="Veloce AI website" />
+          <!-- honeypot: bots fill this, humans don't -->
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+          <div class="lf-row">
+            <div class="lf-field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" required placeholder="Jane Doe" />
+            </div>
+            <div class="lf-field">
+              <label for="email">Work email</label>
+              <input id="email" name="email" type="email" required placeholder="jane@company.com" />
+            </div>
+          </div>
+
+          <div class="lf-row">
+            <div class="lf-field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" required placeholder="Company name" />
+            </div>
+            <div class="lf-field">
+              <label for="role_title">Your role</label>
+              <input id="role_title" name="role_title" type="text" placeholder="Ops / CX / Founder…" />
+            </div>
+          </div>
+
+          <div class="lf-field">
+            <label for="interest">Which role do you want to automate?</label>
+            <select id="interest" name="interest">
+              <option value="Complaints / CX">Complaints / customer experience</option>
+              <option value="Back-office / Finance">Back-office / finance ops</option>
+              <option value="Inbox / Assistant">Inbox &amp; delegation (chief of staff)</option>
+              <option value="Security / Vision">Security / camera monitoring</option>
+              <option value="Other / Not sure">Something else / not sure yet</option>
+            </select>
+          </div>
+
+          <div class="lf-field">
+            <label for="message">What's the job, and how much volume?</label>
+            <textarea id="message" name="message" placeholder="e.g. ~400 complaints/week across web + WhatsApp, 2 staff handling them…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="leadSubmit">Send the brief <span class="arr">→</span></button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          <p class="lf-note">We never share your details. Prefer to talk? Book a live demo →</p>
+        </form>
+
+        <!-- DEMO BOOKING -->
+        <aside class="demo-card glass reveal">
+          <span class="eyebrow">Faster path</span>
+          <h3>Book a 20-min demo</h3>
+          <p style="color:var(--fog,#c4cad6);font-size:.95rem;margin:.2rem 0 0">Watch an autonomous FTE actually run — Watch → Reason → Act → Report — on a live sandbox. No slides.</p>
+          <a href="https://calendly.com/sanjum77/30min" target="_blank" rel="noopener" class="btn btn-primary" id="bookDemo" style="justify-content:center">Pick a time <span class="arr">→</span></a>
+          <ul>
+            <li><span class="ck">✦</span><span>See the agent work end-to-end on a demo brand.</span></li>
+            <li><span class="ck">✦</span><span>We split what runs <b>today</b> from the <b>roadmap</b> — no vaporware.</span></li>
+            <li><span class="ck">✦</span><span>Leave with a deployment plan for one role.</span></li>
+          </ul>
+        </aside>
       </div>
+
       <p style="margin-top:1.4rem;font-size:.82rem;color:var(--muted);font-family:var(--font-mono)">Agent-first · human-in-command · full audit trail · your cloud or ours</p>
     </div>
   </div>
@@ -399,9 +621,9 @@
     <div class="foot-top">
       <div class="foot-brand">
         <div class="foot-lockup">
-          <img class="foot-symbol" src="assets/veloce-symbol.png?v=42" alt="Veloce-AI" />
-          <img class="foot-wordmark" src="assets/veloce-wordmark.png?v=42" alt="VELOCE-AI" />
-          <img class="foot-tagline" src="assets/veloce-tagline.png?v=42" alt="Autonomous Intelligence. Always On." />
+          <img class="foot-symbol" src="assets/veloce-symbol.png?v=38" alt="Veloce-AI" />
+          <img class="foot-wordmark" src="assets/veloce-yellow.png?v=1" alt="Veloce" />
+          <img class="foot-tagline" src="assets/veloce-tagline.png?v=38" alt="Autonomous Intelligence. Always On." />
         </div>
         <p>The Restless Workforce. <em>Autonomous Intelligence. Always On.</em> Autonomous <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent Employees</span> that work 24/7 so your people don't have to.</p>
       </div>
@@ -428,6 +650,224 @@
   </div>
 </footer>
 
-<script src="assets/app.js?v=43"></script>
+<script src="assets/app.js?v=41"></script>
+<!-- Hero text reveal: split h1 + sub into masked words, preserving inline markup. -->
+<script>
+(function(){
+  var groups = document.querySelectorAll('.reveal-text');
+  if(!groups.length) return;
+
+  function wrap(el){
+    var kids = Array.prototype.slice.call(el.childNodes);
+    el.textContent = '';
+    var inners = [];
+    function newMask(){
+      var m = document.createElement('span'); m.className = 'rmask';
+      var i = document.createElement('span'); i.className = 'rword';
+      m.appendChild(i); el.appendChild(m); inners.push(i); return i;
+    }
+    kids.forEach(function(node){
+      if(node.nodeType === 3){                      // text → split into words
+        node.textContent.split(/(\s+)/).forEach(function(tok){
+          if(tok === '') return;
+          if(/^\s+$/.test(tok)){                     // real space BETWEEN masks
+            el.appendChild(document.createTextNode(' '));  // (a space trimmed inside an inline-block mask is what glued words together)
+            return;
+          }
+          newMask().appendChild(document.createTextNode(tok));
+        });
+      } else if(node.nodeName === 'BR'){            // keep line breaks
+        el.appendChild(node);
+      } else {                                       // element (gradient/fte) → reveal as one unit, markup intact
+        newMask().appendChild(node);
+      }
+    });
+    return inners;
+  }
+
+  var base = [0.10, 0.55], step = [0.05, 0.03];     // [h1, sub] start delay + per-word stagger
+  Array.prototype.forEach.call(groups, function(el, gi){
+    wrap(el).forEach(function(inner, i){
+      inner.style.transitionDelay = ((base[gi] || 0.10) + i * (step[gi] || 0.04)) + 's';
+    });
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    Array.prototype.forEach.call(groups, function(el){ el.classList.add('in'); });
+  }); });
+})();
+</script>
+
+<!-- Testimonials slider · fanned stack, vanilla (no deps) -->
+<script>
+(function () {
+  // NOTE: placeholder quotes/avatars from the design demo — replace with real,
+  // attributable customer quotes before this goes live (honesty rule).
+  const TESTIMONIALS = [
+    { text: "Veloce's complaints FTE took over our inbox triage on day one. It just runs.", by: "Maya Chen, Head of CX", img: "https://i.pravatar.cc/120?img=5" },
+    { text: "We rolled it across the team and accountability went up overnight. A genuine change.", by: "Daniel Okafor, Ops Manager", img: "https://i.pravatar.cc/120?img=12" },
+    { text: "The audit trail and human-in-command controls are what got it past our risk team.", by: "Sofia Marchetti, Founder", img: "https://i.pravatar.cc/120?img=32" },
+    { text: "Reporting that used to take an afternoon now lands as a charted Excel in minutes.", by: "Aiden Brooks, Finance Lead", img: "https://i.pravatar.cc/120?img=15" },
+    { text: "It watches the channels we already use — no rebuild, no new dashboards to babysit.", by: "Priya Nair, IT Director", img: "https://i.pravatar.cc/120?img=45" },
+    { text: "Built agent-first, not bolted on. You can feel the difference in how it reasons.", by: "Lucas Müller, CTO", img: "https://i.pravatar.cc/120?img=8" },
+    { text: "24/7 cover without the headcount. The night-shift alerts alone paid for it.", by: "Hana Sato, Security Lead", img: "https://i.pravatar.cc/120?img=20" },
+    { text: "Support is fast, the controls are clear, and it actually owns the job end to end.", by: "Marcus Reed, COO", img: "https://i.pravatar.cc/120?img=51" }
+  ];
+
+  const stage = document.querySelector(".testimonials");
+  if (!stage) return;
+
+  const sizeFor = () => Math.max(240, Math.min(360, window.innerWidth * 0.78));
+  let cardSize = sizeFor();
+  let active = 0;
+
+  const cards = TESTIMONIALS.map((t, i) => {
+    const el = document.createElement("div");
+    el.className = "t-card";
+    el.innerHTML =
+      '<span class="corner"></span>' +
+      '<img src="' + t.img + '" alt="" loading="lazy" />' +
+      '<h3 class="t-text">"' + t.text + '"</h3>' +
+      '<p class="t-by">— ' + t.by + '</p>';
+    el.addEventListener("click", () => { active = i; render(); });
+    stage.appendChild(el);
+    return el;
+  });
+
+  const n = cards.length;
+
+  function render() {
+    cards.forEach((el, i) => {
+      let pos = i - active;                         // circular shortest offset
+      if (pos > n / 2) pos -= n;
+      if (pos < -n / 2) pos += n;
+      const center = pos === 0;
+      // spread scales with viewport so the fan fills the full width (no side gaps)
+      const step = Math.min(cardSize * 0.95, window.innerWidth / 6.2);
+      const tx = step * pos;
+      const ty = center ? -55 : (Math.abs(pos) % 2 ? 15 : -15);
+      const rot = center ? 0 : (Math.abs(pos) % 2 ? 2.5 : -2.5);
+      el.style.width = cardSize + "px";
+      el.style.height = cardSize + "px";
+      el.style.transform =
+        "translate(-50%, -50%) translateX(" + tx + "px) translateY(" + ty + "px) rotate(" + rot + "deg)";
+      el.style.zIndex = n - Math.abs(pos);
+      el.style.opacity = Math.abs(pos) > 3 ? 0 : 1;
+      el.style.pointerEvents = Math.abs(pos) > 3 ? "none" : "auto";
+      el.classList.toggle("center", center);
+    });
+  }
+
+  const move = (dir) => { active = (active + dir + n) % n; render(); };
+  stage.querySelector(".t-prev").addEventListener("click", () => move(-1));
+  stage.querySelector(".t-next").addEventListener("click", () => move(1));
+  window.addEventListener("resize", () => { cardSize = sizeFor(); render(); });
+
+  render();
+})();
+</script>
+
+<!-- Our Process — build the serpentine path through the step dots, then draw it
+     with scroll progress (rAF-eased) and light each node as the line reaches it. -->
+<script>
+(function(){
+  var track = document.querySelector('[data-proc]');
+  if(!track) return;
+  var svg  = track.querySelector('.proc-svg');
+  var bg   = track.querySelector('.proc-line-bg');
+  var line = track.querySelector('.proc-line');
+  var steps = Array.prototype.slice.call(track.querySelectorAll('.proc-step'));
+  if(steps.length < 2) return;
+  var total = 0, fracs = [];
+
+  function build(){
+    var tr = track.getBoundingClientRect();
+    var W = track.clientWidth, H = track.clientHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var pts = steps.map(function(s){
+      var r = s.querySelector('.proc-dot').getBoundingClientRect();
+      return { x: r.left - tr.left + r.width/2, y: r.top - tr.top + r.height/2 };
+    });
+    var d = 'M ' + pts[0].x + ' ' + pts[0].y;
+    for(var i=0;i<pts.length-1;i++){
+      var a = pts[i], b = pts[i+1], my = (a.y + b.y)/2;   // vertical S-curve between alternating x
+      d += ' C ' + a.x + ' ' + my + ', ' + b.x + ' ' + my + ', ' + b.x + ' ' + b.y;
+    }
+    bg.setAttribute('d', d); line.setAttribute('d', d);
+    total = line.getTotalLength();
+    line.style.strokeDasharray = total;
+    line.style.strokeDashoffset = total * (1 - cur);
+    fracs = pts.map(function(_, k){ return k/(pts.length - 1); });
+  }
+
+  var target = 0, cur = 0, raf = null;
+  function setTarget(){
+    var tr = track.getBoundingClientRect(), vh = window.innerHeight;
+    var p = (vh*0.82 - tr.top) / (tr.height*0.78);
+    target = Math.max(0, Math.min(1, p));
+  }
+  function tick(){
+    cur += (target - cur) * 0.12;
+    if(Math.abs(target - cur) < 0.0006) cur = target;
+    if(total) line.style.strokeDashoffset = total * (1 - cur);
+    for(var i=0;i<steps.length;i++) steps[i].classList.toggle('active', cur >= fracs[i] - 0.05);
+    raf = (cur !== target) ? requestAnimationFrame(tick) : null;
+  }
+  function onScroll(){ setTarget(); if(!raf) raf = requestAnimationFrame(tick); }
+
+  function init(){ build(); setTarget(); cur = target; tick(); }
+  init();
+  window.addEventListener('load', init);
+  setTimeout(init, 350);                                   // re-measure after fonts settle
+  window.addEventListener('resize', function(){ build(); onScroll(); }, { passive:true });
+  window.addEventListener('scroll', onScroll, { passive:true });
+})();
+</script>
+
+<script>
+/* ---- Stage A: lead form submit (Web3Forms, no backend) ---- */
+(function () {
+  var form = document.getElementById('leadForm');
+  if (!form) return;
+  var statusEl = document.getElementById('formStatus');
+  var btn = document.getElementById('leadSubmit');
+  var KEY_PLACEHOLDER = 'YOUR_WEB3FORMS_ACCESS_KEY';
+
+  function setStatus(msg, type) { statusEl.className = 'form-status ' + type; statusEl.textContent = msg; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var key = form.querySelector('[name="access_key"]').value;
+    if (key === KEY_PLACEHOLDER) {
+      setStatus('Form not configured yet — add your Web3Forms access key in index.html.', 'err');
+      return;
+    }
+    btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending…';
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          setStatus("Got it — we'll be in touch within one business day.", 'ok');
+          form.reset();
+          if (window.gtag) gtag('event', 'generate_lead', { method: 'contact_form' });
+          if (window.fbq) fbq('track', 'Lead');
+        } else {
+          setStatus(data.message || 'Something went wrong — email info@veloce-ai.com instead.', 'err');
+        }
+      })
+      .catch(function () { setStatus('Network error — email info@veloce-ai.com instead.', 'err'); })
+      .finally(function () { btn.disabled = false; btn.innerHTML = label; });
+  });
+
+  var book = document.getElementById('bookDemo');
+  if (book) book.addEventListener('click', function () {
+    if (window.gtag) gtag('event', 'book_demo_click');
+    if (window.fbq) fbq('track', 'Schedule');
+  });
+})();
+</script>
 </body>
 </html>
