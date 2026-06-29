@@ -119,9 +119,9 @@ body{ font-weight:300; letter-spacing:.003em; }
 /* hero badge — colour matches the lab .eyebrow (cyan), thin, clear hairline border */
 .ai-badge{ display:flex; width:fit-content; white-space:nowrap; font-weight:300; letter-spacing:.05em; color:#2FE6E0; background:rgba(47,230,224,.05); border:1px solid rgba(47,230,224,.42); box-shadow:none; padding:.4rem .85rem; }
 .ai-badge::before{ color:#2FE6E0; }
-/* FTE phrase stays sea-green; only the F·T·E initials are yellow */
+/* FTE phrase stays sea-green; the F·T·E initials pop in brand cyan */
 .ai-badge .fte{ color:#2FE6E0; }
-.ai-badge .fte i{ background:none; color:#FFD43B; -webkit-text-fill-color:#FFD43B; }
+.ai-badge .fte i{ background:none; color:#00F5FF; -webkit-text-fill-color:#00F5FF; }
 
 @media (prefers-reduced-motion:reduce){ .greet-sun{ animation:none } }
 
