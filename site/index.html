@@ -784,16 +784,17 @@
       var r = s.querySelector('.proc-dot').getBoundingClientRect();
       return { x: r.left - tr.left + r.width/2, y: r.top - tr.top + r.height/2 };
     });
-    // looping connector: swing the curve out to each card's side between
-    // consecutive nodes, so the line reads as a series of rounded loops.
-    var swing = Math.min(W * 0.30, 260);
+    // looping connector: between consecutive nodes the curve swings WIDE to
+    // each card's side (into the open canvas, below the card it left), with long
+    // control handles so it reads as a big, long, curvy S that loops past centre.
+    var swing = Math.min(W * 0.46, 440);
     var d = 'M ' + pts[0].x + ' ' + pts[0].y;
     for(var i=0;i<pts.length-1;i++){
       var a = pts[i], b = pts[i+1], dy = b.y - a.y;
       var sideA = steps[i].classList.contains('right') ? 1 : -1;     // side card a sits on
       var sideB = steps[i+1].classList.contains('right') ? 1 : -1;   // (alternates)
-      var c1x = a.x + sideA * swing, c1y = a.y + dy * 0.52;
-      var c2x = b.x + sideB * swing, c2y = b.y - dy * 0.52;
+      var c1x = a.x + sideA * swing, c1y = a.y + dy * 0.62;          // bow out below a
+      var c2x = b.x + sideB * swing, c2y = b.y - dy * 0.62;          // swing across to b
       d += ' C ' + c1x + ' ' + c1y + ', ' + c2x + ' ' + c2y + ', ' + b.x + ' ' + b.y;
     }
     bg.setAttribute('d', d); line.setAttribute('d', d);
