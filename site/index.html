@@ -62,6 +62,72 @@
   .demo-card li .ck{color:var(--accent,#7a5cff)}
   .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
 </style>
+<!-- "See it working" — three live product surfaces (scoped, on-brand) -->
+<style id="atwork-fx">
+  .atwork{ padding-block:clamp(2.4rem,7vh,5rem); }
+  .aw-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;
+    margin-top:clamp(1.8rem,4vh,3rem); align-items:stretch; }
+  @media(max-width:980px){ .aw-grid{ grid-template-columns:1fr; max-width:540px; margin-inline:auto; } }
+  .aw-card{ border-radius:16px; padding:0; overflow:hidden; display:flex; flex-direction:column;
+    min-height:344px; }
+  .aw-head{ display:flex; align-items:center; gap:.5rem; padding:.7rem .9rem; border-bottom:1px solid var(--line);
+    font-family:var(--font-mono,monospace); font-size:.71rem; letter-spacing:.03em; color:var(--fog);
+    background:rgba(255,255,255,.025); }
+  .aw-head .dot{ width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); flex:none; }
+  .aw-head .spacer{ margin-left:auto; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; font-size:.62rem; }
+  .aw-body{ padding:.95rem; flex:1; display:flex; flex-direction:column; gap:.55rem; }
+  .aw-foot{ padding:.6rem .9rem; border-top:1px solid var(--line); font-family:var(--font-mono,monospace);
+    font-size:.68rem; color:var(--muted); display:flex; align-items:center; gap:.45rem; }
+  .aw-foot .dot{ width:6px; height:6px; border-radius:50%; background:var(--cyan); flex:none; }
+  .aw-cap{ text-align:center; margin-top:1.4rem; font-family:var(--font-mono,monospace); font-size:.7rem;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  /* 1 · telemetry log */
+  .aw-log{ font-family:var(--font-mono,monospace); font-size:.73rem; line-height:1.5; gap:.5rem; }
+  .aw-line{ display:flex; gap:.5rem; opacity:0; transform:translateY(6px); transition:opacity .4s ease, transform .4s ease; }
+  .aw-line.in{ opacity:1; transform:none; }
+  .aw-line .t{ color:var(--muted); flex:none; }
+  .aw-line .k{ flex:none; width:52px; font-weight:700; }
+  .aw-line .k.watch{ color:#7DD3FC; } .aw-line .k.reason{ color:var(--violet); }
+  .aw-line .k.act{ color:var(--cyan); } .aw-line .k.report{ color:#86EFAC; }
+  .aw-line .v{ color:var(--fog); } .aw-line .v b{ color:#fff; }
+  /* 2 · inbox thread */
+  .aw-thread{ gap:.5rem; }
+  .aw-msg{ max-width:88%; padding:.58rem .8rem; border-radius:13px; font-size:.83rem; line-height:1.42;
+    opacity:0; transform:translateY(8px); transition:opacity .45s ease, transform .45s ease; }
+  .aw-msg.in{ opacity:1; transform:none; }
+  .aw-msg.cust{ align-self:flex-start; background:rgba(255,255,255,.06); border:1px solid var(--line); border-bottom-left-radius:3px; color:var(--fog); }
+  .aw-msg.agent{ align-self:flex-end; background:linear-gradient(135deg,rgba(79,141,255,.20),rgba(122,92,255,.20));
+    border:1px solid rgba(122,92,255,.4); border-bottom-right-radius:3px; color:#EAF1FF; }
+  .aw-msg.agent small{ display:block; margin-top:.3rem; font-family:var(--font-mono,monospace); font-size:.64rem; color:#a9b2d8; }
+  .aw-typing{ align-self:flex-end; display:none; gap:4px; padding:.5rem .7rem; }
+  .aw-typing.show{ display:inline-flex; }
+  .aw-typing span{ width:6px; height:6px; border-radius:50%; background:var(--violet); animation:awblink 1s infinite; }
+  .aw-typing span:nth-child(2){ animation-delay:.2s; } .aw-typing span:nth-child(3){ animation-delay:.4s; }
+  @keyframes awblink{ 0%,100%{opacity:.3} 50%{opacity:1} }
+  .aw-controls{ display:flex; gap:.5rem; margin-top:auto; opacity:0; transition:opacity .4s ease; }
+  .aw-controls.in{ opacity:1; }
+  .aw-btn{ font-size:.74rem; padding:.4rem .85rem; border-radius:9px; font-family:var(--font-mono,monospace); }
+  .aw-btn.approve{ background:var(--ai-grad-2); color:#fff; }
+  .aw-btn.approve.pulse{ animation:awpulse 1.7s ease-out 1; }
+  @keyframes awpulse{ 0%{box-shadow:0 0 0 0 rgba(122,92,255,.55)} 100%{box-shadow:0 0 0 15px rgba(122,92,255,0)} }
+  .aw-btn.edit{ background:transparent; border:1px solid var(--line-2); color:var(--fog); }
+  /* 3 · ops dashboard */
+  .aw-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:.55rem; }
+  .aw-stat{ border:1px solid var(--line); border-radius:10px; padding:.65rem .4rem; text-align:center; background:rgba(255,255,255,.02); }
+  .aw-stat b{ display:block; font-family:var(--font-display); font-weight:700; font-size:1.45rem;
+    background:var(--ai-grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+  .aw-stat small{ font-family:var(--font-mono,monospace); font-size:.6rem; letter-spacing:.03em; color:var(--muted); text-transform:uppercase; }
+  .aw-audit{ margin-top:.7rem; display:flex; flex-direction:column; gap:.4rem; }
+  .aw-row{ display:flex; align-items:center; gap:.45rem; font-family:var(--font-mono,monospace); font-size:.71rem;
+    color:var(--fog); padding:.45rem .6rem; border:1px solid var(--line); border-radius:8px;
+    opacity:0; transform:translateX(-6px); transition:opacity .4s ease, transform .4s ease; }
+  .aw-row.in{ opacity:1; transform:none; }
+  .aw-row .ok{ color:#86EFAC; margin-left:auto; }
+  .aw-badges{ display:flex; gap:.45rem; margin-top:.7rem; flex-wrap:wrap; }
+  .aw-badge{ font-family:var(--font-mono,monospace); font-size:.63rem; padding:.28rem .55rem; border-radius:7px; letter-spacing:.03em; }
+  .aw-badge.live{ color:#04121A; background:var(--cyan); }
+  .aw-badge.road{ color:#CBB8FF; border:1px solid rgba(122,92,255,.5); background:rgba(122,92,255,.08); }
+</style>
 </head>
 <body class="fx">
 
@@ -334,6 +400,71 @@
     </div>
   </div>
 </section>
+
+<!-- SEE IT WORKING — three live product surfaces (Watch→Reason→Act→Report) -->
+<section id="atwork" class="atwork">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:680px;margin-inline:auto">
+      <span class="eyebrow" style="justify-content:center;display:inline-flex">Live, not slideware</span>
+      <h2>See an FTE <span class="ai-grad-text">at work.</span></h2>
+      <p>The same loop on three real surfaces — the telemetry stream, the human-in-command inbox, and the ops dashboard.</p>
+    </div>
+    <div class="aw-grid">
+
+      <!-- 1 · TELEMETRY LOG -->
+      <div class="aw-card glass reveal" data-aw="log">
+        <div class="aw-head"><span class="dot"></span> veloce://fte-03 · chief-of-staff <span class="spacer">live</span></div>
+        <div class="aw-body aw-log">
+          <div class="aw-line"><span class="t">10:02</span><span class="k watch">WATCH</span><span class="v">inbox: “POS is down at Sehar branch”</span></div>
+          <div class="aw-line"><span class="t">10:02</span><span class="k reason">REASON</span><span class="v">classified <b>TOP_URGENT</b> → route: ops on-call</span></div>
+          <div class="aw-line"><span class="t">10:02</span><span class="k act">ACT</span><span class="v">task <b>#4471</b> created · WhatsApp alert sent</span></div>
+          <div class="aw-line"><span class="t">10:31</span><span class="k report">REPORT</span><span class="v">resolved · 6m · audit trail ✓</span></div>
+        </div>
+        <div class="aw-foot"><span class="dot" style="background:#86EFAC"></span> human-in-command · every step logged</div>
+      </div>
+
+      <!-- 2 · HUMAN-IN-COMMAND INBOX -->
+      <div class="aw-card glass reveal" data-aw="thread">
+        <div class="aw-head"><span class="dot"></span> complaints · WhatsApp <span class="spacer">drafting</span></div>
+        <div class="aw-body aw-thread">
+          <div class="aw-msg cust">“Order arrived cold — second time this week.”</div>
+          <div class="aw-typing" data-typing><span></span><span></span><span></span></div>
+          <div class="aw-msg agent" data-draft>Apologies, Sara — a full refund is issued and a priority redelivery is on its way, no charge.<small>drafted in your brand voice · source: order #8821</small></div>
+          <div class="aw-controls" data-controls>
+            <span class="aw-btn approve">Approve ✓</span>
+            <span class="aw-btn edit">Edit</span>
+          </div>
+        </div>
+        <div class="aw-foot"><span class="dot" style="background:var(--violet)"></span> nothing sends without a human OK</div>
+      </div>
+
+      <!-- 3 · OPS DASHBOARD -->
+      <div class="aw-card glass reveal" data-aw="dash">
+        <div class="aw-head"><span class="dot"></span> complaints officer · today <span class="spacer">demoeats</span></div>
+        <div class="aw-body">
+          <div class="aw-stats">
+            <div class="aw-stat"><b data-count="142">142</b><small>routed</small></div>
+            <div class="aw-stat"><b data-count="6" data-suffix="m">6m</b><small>avg handle</small></div>
+            <div class="aw-stat"><b data-count="98" data-suffix="%">98%</b><small>within SLA</small></div>
+          </div>
+          <div class="aw-audit">
+            <div class="aw-row">#4471 · POS outage <span class="ok">✓ resolved</span></div>
+            <div class="aw-row">#4470 · cold delivery <span class="ok">✓ refunded</span></div>
+            <div class="aw-row">#4469 · wrong item <span class="ok">✓ replaced</span></div>
+          </div>
+          <div class="aw-badges">
+            <span class="aw-badge live">● live: routing + audit</span>
+            <span class="aw-badge road">roadmap: AI triage</span>
+          </div>
+        </div>
+        <div class="aw-foot"><span class="dot"></span> what runs today, split from the roadmap</div>
+      </div>
+
+    </div>
+    <p class="aw-cap reveal">Representative run · synthetic <b>DemoEats</b> sandbox · no real customer data</p>
+  </div>
+</section>
+<noscript><style>.aw-line,.aw-msg,.aw-controls,.aw-row{opacity:1!important;transform:none!important}.aw-typing{display:none!important}</style></noscript>
 
 <!-- FLEET -->
 <section id="fleet">
@@ -794,6 +925,59 @@
     if (window.gtag) gtag('event', 'book_demo_click');
     if (window.fbq) fbq('track', 'Schedule');
   });
+})();
+</script>
+
+<script>
+/* "See it working" — animate the three product surfaces when the section is in view */
+(function(){
+  var section = document.getElementById('atwork');
+  if(!section) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var cards = {};
+  section.querySelectorAll('[data-aw]').forEach(function(c){ cards[c.getAttribute('data-aw')] = c; });
+
+  function runLog(card){
+    var lines = card.querySelectorAll('.aw-line');
+    lines.forEach(function(l){ l.classList.remove('in'); });
+    lines.forEach(function(l,i){ setTimeout(function(){ l.classList.add('in'); }, 350 + i*680); });
+  }
+  function runThread(card){
+    var cust=card.querySelector('.aw-msg.cust'), typing=card.querySelector('[data-typing]'),
+        draft=card.querySelector('[data-draft]'), controls=card.querySelector('[data-controls]'),
+        approve=card.querySelector('.approve');
+    [cust,draft,controls].forEach(function(e){ e.classList.remove('in'); });
+    typing.classList.remove('show'); approve.classList.remove('pulse');
+    setTimeout(function(){ cust.classList.add('in'); }, 350);
+    setTimeout(function(){ typing.classList.add('show'); }, 1150);
+    setTimeout(function(){ typing.classList.remove('show'); draft.classList.add('in'); }, 2700);
+    setTimeout(function(){ controls.classList.add('in'); void approve.offsetWidth; approve.classList.add('pulse'); }, 3400);
+  }
+  function runDash(card){
+    card.querySelectorAll('[data-count]').forEach(function(el){
+      var target=+el.getAttribute('data-count'), suf=el.getAttribute('data-suffix')||'', t0=null, dur=1100;
+      el.textContent='0'+suf;
+      requestAnimationFrame(function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur);
+        el.textContent=Math.round(target*p)+suf; if(p<1) requestAnimationFrame(step); });
+    });
+    var rows=card.querySelectorAll('.aw-row');
+    rows.forEach(function(r){ r.classList.remove('in'); });
+    rows.forEach(function(r,i){ setTimeout(function(){ r.classList.add('in'); }, 500 + i*420); });
+  }
+  function runAll(){ if(cards.log)runLog(cards.log); if(cards.thread)runThread(cards.thread); if(cards.dash)runDash(cards.dash); }
+
+  if(reduce){
+    section.querySelectorAll('.aw-line,.aw-msg,.aw-controls,.aw-row').forEach(function(e){ e.classList.add('in'); });
+    return;
+  }
+  var timer=null;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ if(!timer){ runAll(); timer=setInterval(runAll, 9000); } }
+      else if(timer){ clearInterval(timer); timer=null; }
+    });
+  },{ threshold:.3 });
+  io.observe(section);
 })();
 </script>
 </body>
