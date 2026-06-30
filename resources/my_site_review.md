@@ -67,3 +67,15 @@ The brand sheet (`veloce_ai_final.png`) is itself a neon cyan/violet identity, s
 (Anthropic/Sierra camp) conflicts with it. The pragmatic path is the **restrained deep-black camp**
 (Linear/Vercel): keep the brand, but one dominant accent, real product UI, far less motion, and kill the
 AI-cliché imagery. That keeps the identity while buying the premium/serious read.
+
+## Status (2026-06-30) — what's been actioned vs. parked
+
+**Done & pushed:**
+- **P0.1–P0.3** — removed fabricated testimonials; de-yellowed all icons/illustrations (final scan clean); replaced the "Intro Here" placeholder with the tagline; deleted dead files.
+- **P1 #4 (flagship)** — added the **"See an FTE at work"** section: three animated, on-brand product surfaces (telemetry log · human-in-command inbox · ops dashboard), labeled as a synthetic DemoEats sandbox with a live-vs-roadmap split. The hero robot was **kept** (owner's call) — the artifacts were *added*, not a replacement.
+- **P2** — collapsed 7 CSS files → 2 (`styles.css` + merged `veloce-skin.css`); deleted unused `styles-v2/v3`, `mystyle-ideal`, `orangefishsea`, and legacy `index-v2/v3.html`. index/contact now load 2 sheets (was 3).
+
+**Parked (owner deferred — revisit for the next polish pass):**
+- **#5 — Cut AI-cliché illustrations / one dominant accent.** Reduce the per-section 3D neon renders (brain-chip, cube) to one tasteful motif; pull the 4-stop gradient back toward a single accent. *Destructive (removes content) — needs a design pass + owner sign-off.*
+- **#6 — Reduce motion.** Gate the cursor-robot/orb density behind `prefers-reduced-motion` and trim ambient motion. *Safe; deferred only for time.*
+- **#7 — Consolidate ~10 sections → ~6.** Merge why/engine/infinity; tighten the long scroll. *Destructive — needs owner input on what to keep.*
