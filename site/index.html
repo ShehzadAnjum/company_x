@@ -539,33 +539,43 @@
       <div class="proc-steps">
         <div class="proc-step left">
           <span class="proc-dot" aria-hidden="true"></span>
-          <span class="proc-num">01</span>
-          <h3>Find the bleeding role</h3>
-          <p>We map the job draining your hours — the inbox, the complaints queue, the food cost, the camera no one watches — and the channels it already runs on.</p>
+          <div class="proc-text">
+            <span class="proc-num">01</span>
+            <h3>Find the bleeding role</h3>
+            <p>We map the job draining your hours — the inbox, the complaints queue, the food cost, the camera no one watches — and the channels it already runs on.</p>
+          </div>
         </div>
         <div class="proc-step right">
           <span class="proc-dot" aria-hidden="true"></span>
-          <span class="proc-num">02</span>
-          <h3>Scope the FTE</h3>
-          <p>We define exactly what the <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent</span> owns end to end, the policy it follows, and the points where a human stays in command.</p>
+          <div class="proc-text">
+            <span class="proc-num">02</span>
+            <h3>Scope the FTE</h3>
+            <p>We define exactly what the <span class="fte"><i>F</i>ull <i>T</i>ime <i>E</i>quivalent</span> owns end to end, the policy it follows, and the points where a human stays in command.</p>
+          </div>
         </div>
         <div class="proc-step left">
           <span class="proc-dot" aria-hidden="true"></span>
-          <span class="proc-num">03</span>
-          <h3>Wire it in</h3>
-          <p>We connect it to your existing stack — Gmail, WhatsApp, cameras, ledgers, dashboards — and ground it in your real data and playbooks. No rebuild.</p>
+          <div class="proc-text">
+            <span class="proc-num">03</span>
+            <h3>Wire it in</h3>
+            <p>We connect it to your existing stack — Gmail, WhatsApp, cameras, ledgers, dashboards — and ground it in your real data and playbooks. No rebuild.</p>
+          </div>
         </div>
         <div class="proc-step right">
           <span class="proc-dot" aria-hidden="true"></span>
-          <span class="proc-num">04</span>
-          <h3>Deploy to production</h3>
-          <p>The FTE goes live: watching, reasoning, acting and reporting 24/7 — with approval gates wherever the stakes are high.</p>
+          <div class="proc-text">
+            <span class="proc-num">04</span>
+            <h3>Deploy to production</h3>
+            <p>The FTE goes live: watching, reasoning, acting and reporting 24/7 — with approval gates wherever the stakes are high.</p>
+          </div>
         </div>
         <div class="proc-step left">
           <span class="proc-dot" aria-hidden="true"></span>
-          <span class="proc-num">05</span>
-          <h3>Measure &amp; scale</h3>
-          <p>Every action is logged and explainable. Once it's proven on one role, we point the same platform at the next.</p>
+          <div class="proc-text">
+            <span class="proc-num">05</span>
+            <h3>Measure &amp; scale</h3>
+            <p>Every action is logged and explainable. Once it's proven on one role, we point the same platform at the next.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -830,18 +840,13 @@
       var r = s.querySelector('.proc-dot').getBoundingClientRect();
       return { x: r.left - tr.left + r.width/2, y: r.top - tr.top + r.height/2 };
     });
-    // looping connector: between consecutive nodes the curve swings WIDE to
-    // each card's side (into the open canvas, below the card it left), with long
-    // control handles so it reads as a big, long, curvy S that loops past centre.
-    var swing = Math.min(W * 0.46, 440);
+    // smooth serpentine (growthloops "our process"): each segment is a cubic with
+    // control points at the endpoints' x and the mid-y, giving vertical tangents at
+    // every node — the line leaves each node straight, then bends across to the next.
     var d = 'M ' + pts[0].x + ' ' + pts[0].y;
     for(var i=0;i<pts.length-1;i++){
-      var a = pts[i], b = pts[i+1], dy = b.y - a.y;
-      var sideA = steps[i].classList.contains('right') ? 1 : -1;     // side card a sits on
-      var sideB = steps[i+1].classList.contains('right') ? 1 : -1;   // (alternates)
-      var c1x = a.x + sideA * swing, c1y = a.y + dy * 0.62;          // bow out below a
-      var c2x = b.x + sideB * swing, c2y = b.y - dy * 0.62;          // swing across to b
-      d += ' C ' + c1x + ' ' + c1y + ', ' + c2x + ' ' + c2y + ', ' + b.x + ' ' + b.y;
+      var a = pts[i], b = pts[i+1], my = (a.y + b.y) / 2;
+      d += ' C ' + a.x + ' ' + my + ', ' + b.x + ' ' + my + ', ' + b.x + ' ' + b.y;
     }
     bg.setAttribute('d', d); line.setAttribute('d', d);
     total = line.getTotalLength();
