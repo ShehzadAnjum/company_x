@@ -125,86 +125,40 @@
     setTimeout(tick, 1100);
   }
 
-  /* ---- circle cursor + spotlight (PurpleDelight / Purple2) ------------- */
+  /* ---- circle brand cursor: a ring + centre dot that follows the pointer and
+     grows over interactive elements. Calm by design — the old trailing dots and
+     16-spark firework burst were removed for a more premium feel (review #6). -- */
   (function cursorFX() {
     if (!document.body.classList.contains('fx')) return;
     const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if (!fine) return;
     const calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    if (!fine) return;   // reduce-motion keeps the cursor, just drops the trail
 
     const ring = document.createElement('div'); ring.className = 'cursor-ring';
-    const glow = document.createElement('div'); glow.className = 'cursor-glow';
-    document.body.append(glow, ring);
+    document.body.appendChild(ring);
 
-    // glow tracks the pointer 1:1; the ring eases behind for a trailing feel
     let tx = innerWidth / 2, ty = innerHeight / 2;   // target (true pointer)
-    let rx = tx, ry = ty;                             // ring position (lerped)
-    let started = false;
+    let rx = tx, ry = ty;                             // ring position (eased)
+    let started = false, inside = true;
+    const ease = calm ? 1 : 0.22;                    // gentle follow, no trailing FX
 
-    let lastTX = tx, lastTY = ty;
-    const move = (x, y) => {
-      tx = x; ty = y;
-      glow.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    window.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
       if (!started) { started = true; document.body.classList.add('fx-ready'); }
-      if (calm) return;
-      const dx = x - lastTX, dy = y - lastTY;
-      if (dx * dx + dy * dy > 520) {   // every ~23px, drop a faint half-circle
-        const t = document.createElement('div'); t.className = 'cursor-trail';
-        t.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 900);
-        lastTX = x; lastTY = y;
-      }
-    };
-    window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY), { passive: true });
-
-    // two-stage easing => initial delay + smooth follow (higher = faster chase)
-    const e1 = calm ? 1 : 0.075;
-    const e2 = calm ? 1 : 0.075;
-    let mx = tx, my = ty, inside = true, armed = true;
-
-    // star/firework burst when the ring finally reaches the cursor
-    const burst = (x, y) => {
-      const flash = document.createElement('div'); flash.className = 'cursor-burst';
-      flash.style.setProperty('--bx', x + 'px'); flash.style.setProperty('--by', y + 'px');
-      document.body.appendChild(flash); setTimeout(() => flash.remove(), 560);
-      for (let i = 0; i < 16; i++) {
-        const a = (Math.PI * 2) * (i / 16) + Math.random() * 0.5;
-        const d = 16 + Math.random() * 30;
-        const s = document.createElement('div'); s.className = 'cursor-spark';
-        s.style.setProperty('--x0', x + 'px'); s.style.setProperty('--y0', y + 'px');
-        s.style.setProperty('--x1', (x + Math.cos(a) * d) + 'px');
-        s.style.setProperty('--y1', (y + Math.sin(a) * d) + 'px');
-        document.body.appendChild(s); setTimeout(() => s.remove(), 680);
-      }
-    };
+    }, { passive: true });
 
     const raf = () => {
-      mx += (tx - mx) * e1; my += (ty - my) * e1;
-      rx += (mx - rx) * e2; ry += (my - ry) * e2;
-      const dist = Math.hypot(tx - rx, ty - ry);
-      if (armed && started && inside && dist < 9) { burst(tx, ty); armed = false; }  // caught it -> burst
-      else if (!armed && dist > 70) { armed = true; }                                // moved away -> re-arm
-      const k = Math.max(0, Math.min(1, (dist - 5) / 55));
-      const op = (inside && started && armed) ? (0.12 + 0.75 * k) : 0;   // hidden after the burst
-      ring.style.opacity = op.toFixed(2);
-      ring.style.borderStyle = k < 0.5 ? 'dashed' : 'solid';
-      const sc = 1 + (1 - k) * 0.35;
-      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) scale(' + sc.toFixed(3) + ')';
+      rx += (tx - rx) * ease; ry += (ty - ry) * ease;
+      ring.style.opacity = (inside && started) ? '1' : '0';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
 
     // grow + fill the ring over clickable things
     const interactive = 'a, button, .btn, .chip, [role="button"], input, textarea, select';
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(interactive)) ring.classList.add('is-active');
-    });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(interactive)) ring.classList.remove('is-active');
-    });
-
-    // fade everything out when the pointer leaves the window
+    document.addEventListener('mouseover', (e) => { if (e.target.closest(interactive)) ring.classList.add('is-active'); });
+    document.addEventListener('mouseout',  (e) => { if (e.target.closest(interactive)) ring.classList.remove('is-active'); });
     document.addEventListener('mouseleave', () => { inside = false; document.body.classList.remove('fx-ready'); });
     document.addEventListener('mouseenter', () => { inside = true; if (started) document.body.classList.add('fx-ready'); });
   })();
@@ -214,6 +168,7 @@
     const bot = document.querySelector('[data-robot]');
     if (!bot || !window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
     const calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (calm) return;   // reduced-motion: the robot stays still
 
     let tx = 0, ty = 0, rx = 0, ry = 0;   // target vs eased, range ~[-1,1]
     const clamp = (v) => Math.max(-1, Math.min(1, v));
@@ -247,7 +202,7 @@
       ln.style.animationDelay = (i * LDUR / LINES).toFixed(2) + 's';
       host.appendChild(ln);
     }
-    const WAVES = 9, CHARS = 13, DUR = 26;           // DUR matches the binWave CSS duration
+    const WAVES = 4, CHARS = 9, DUR = 26;            // thinned for a calmer hero (review #6)
     const all = [];
     for (let w = 0; w < WAVES; w++) {
       const delay = (w * DUR / WAVES).toFixed(2) + 's';
@@ -262,9 +217,8 @@
         host.appendChild(s); all.push(s);
       }
     }
-    if (!window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
-      setInterval(() => { for (const s of all) if (Math.random() < 0.4) s.textContent = Math.random() < 0.5 ? '0' : '1'; }, 1400);
-    }
+    // (the per-character 0/1 flicker was removed for a calmer hero — review #6)
+    void all;
   })();
 
   /* ---- analytics & pixels (Stage A) ----------------------------------- *
