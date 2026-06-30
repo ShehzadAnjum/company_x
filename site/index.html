@@ -70,7 +70,7 @@
 <div id="intro" role="dialog" aria-label="Intro — click to enter">
   <div class="intro-inner">
     <img class="intro-logo" src="assets/veloce-logo-2026.png?v=2026" alt="Veloce-AI" />
-    <div class="intro-tag">Intro Here</div>
+    <div class="intro-tag">Autonomous Intelligence. Always On.</div>
     <div class="intro-hint">Click anywhere to enter</div>
   </div>
 </div>
@@ -219,20 +219,10 @@
 
 </header>
 
-<!-- TESTIMONIALS · fanned card stack, center card popped up; arrows / click to cycle -->
-<section class="testimonials-section">
-  <div class="wrap"><div class="label reveal">From the field</div></div>
-  <div class="testimonials" aria-label="Testimonials">
-    <div class="t-nav">
-      <button class="t-prev" aria-label="Previous testimonial">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <button class="t-next" aria-label="Next testimonial">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
-    </div>
-  </div>
-</section>
+<!-- Testimonials removed 2026-06-30: were placeholder/stock quotes (pravatar avatars,
+     invented names) — off-brand for an honesty-first product. Re-add only with real,
+     attributable customer proof (name + company, ideally a logo strip). -->
+
 
 <!-- HERITAGE STRIP -->
 <div class="compliance">
@@ -695,74 +685,6 @@
 </script>
 
 <!-- Testimonials slider · fanned stack, vanilla (no deps) -->
-<script>
-(function () {
-  // NOTE: placeholder quotes/avatars from the design demo — replace with real,
-  // attributable customer quotes before this goes live (honesty rule).
-  const TESTIMONIALS = [
-    { text: "Veloce's complaints FTE took over our inbox triage on day one. It just runs.", by: "Maya Chen, Head of CX", img: "https://i.pravatar.cc/120?img=5" },
-    { text: "We rolled it across the team and accountability went up overnight. A genuine change.", by: "Daniel Okafor, Ops Manager", img: "https://i.pravatar.cc/120?img=12" },
-    { text: "The audit trail and human-in-command controls are what got it past our risk team.", by: "Sofia Marchetti, Founder", img: "https://i.pravatar.cc/120?img=32" },
-    { text: "Reporting that used to take an afternoon now lands as a charted Excel in minutes.", by: "Aiden Brooks, Finance Lead", img: "https://i.pravatar.cc/120?img=15" },
-    { text: "It watches the channels we already use — no rebuild, no new dashboards to babysit.", by: "Priya Nair, IT Director", img: "https://i.pravatar.cc/120?img=45" },
-    { text: "Built agent-first, not bolted on. You can feel the difference in how it reasons.", by: "Lucas Müller, CTO", img: "https://i.pravatar.cc/120?img=8" },
-    { text: "24/7 cover without the headcount. The night-shift alerts alone paid for it.", by: "Hana Sato, Security Lead", img: "https://i.pravatar.cc/120?img=20" },
-    { text: "Support is fast, the controls are clear, and it actually owns the job end to end.", by: "Marcus Reed, COO", img: "https://i.pravatar.cc/120?img=51" }
-  ];
-
-  const stage = document.querySelector(".testimonials");
-  if (!stage) return;
-
-  const sizeFor = () => Math.max(240, Math.min(360, window.innerWidth * 0.78));
-  let cardSize = sizeFor();
-  let active = 0;
-
-  const cards = TESTIMONIALS.map((t, i) => {
-    const el = document.createElement("div");
-    el.className = "t-card";
-    el.innerHTML =
-      '<span class="corner"></span>' +
-      '<img src="' + t.img + '" alt="" loading="lazy" />' +
-      '<h3 class="t-text">"' + t.text + '"</h3>' +
-      '<p class="t-by">— ' + t.by + '</p>';
-    el.addEventListener("click", () => { active = i; render(); });
-    stage.appendChild(el);
-    return el;
-  });
-
-  const n = cards.length;
-
-  function render() {
-    cards.forEach((el, i) => {
-      let pos = i - active;                         // circular shortest offset
-      if (pos > n / 2) pos -= n;
-      if (pos < -n / 2) pos += n;
-      const center = pos === 0;
-      // spread scales with viewport so the fan fills the full width (no side gaps)
-      const step = Math.min(cardSize * 0.95, window.innerWidth / 6.2);
-      const tx = step * pos;
-      const ty = center ? -55 : (Math.abs(pos) % 2 ? 15 : -15);
-      const rot = center ? 0 : (Math.abs(pos) % 2 ? 2.5 : -2.5);
-      el.style.width = cardSize + "px";
-      el.style.height = cardSize + "px";
-      el.style.transform =
-        "translate(-50%, -50%) translateX(" + tx + "px) translateY(" + ty + "px) rotate(" + rot + "deg)";
-      el.style.zIndex = n - Math.abs(pos);
-      el.style.opacity = Math.abs(pos) > 3 ? 0 : 1;
-      el.style.pointerEvents = Math.abs(pos) > 3 ? "none" : "auto";
-      el.classList.toggle("center", center);
-    });
-  }
-
-  const move = (dir) => { active = (active + dir + n) % n; render(); };
-  stage.querySelector(".t-prev").addEventListener("click", () => move(-1));
-  stage.querySelector(".t-next").addEventListener("click", () => move(1));
-  window.addEventListener("resize", () => { cardSize = sizeFor(); render(); });
-
-  render();
-})();
-</script>
-
 <!-- Our Process — build the serpentine path through the step dots, then draw it
      with scroll progress (rAF-eased) and light each node as the line reaches it. -->
 <script>
